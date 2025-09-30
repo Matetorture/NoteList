@@ -1,0 +1,92 @@
+<div class="category-form-container">
+  <div class="header">
+    <h1>Manage Categories</h1>
+    <button (click)="goBack()" class="back-btn">Back to Notes</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading categories...
+  </div>
+
+  <div *ngIf="!loading" class="content">
+    <!-- Add New Category -->
+    <div class="add-category-section">
+      <h2>Add New Category</h2>
+      <div class="add-category-form">
+        <input 
+          [(ngModel)]="newCategoryName" 
+          placeholder="Category name" 
+          class="category-input"
+          (keyup.enter)="addCategory()">
+        <div class="color-picker-group">
+          <input 
+            [(ngModel)]="newCategoryColor" 
+            type="color" 
+            class="color-input">
+          <button (click)="useRandomColor()" class="random-color-btn" title="Random Color">🎲</button>
+        </div>
+        <button (click)="addCategory()" class="add-btn">Add Category</button>
+      </div>
+      <div class="color-preview">
+        <span class="preview-tag" [style.background-color]="newCategoryColor">
+          {{ newCategoryName || 'Preview' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Existing Categories -->
+    <div class="categories-section">
+      <h2>Existing Categories ({{ categories.length }})</h2>
+      
+      <div *ngIf="categories.length === 0" class="empty-state">
+        <p>No categories found. Create your first category above!</p>
+      </div>
+
+      <div class="categories-grid">
+        <div *ngFor="let category of categories" class="category-card">
+          <div *ngIf="editingCategory?.name !== category.name" class="category-view">
+            <div class="category-header">
+              <span 
+                class="category-tag"
+                [style.background-color]="category.color">
+                {{ category.name }}
+              </span>
+              <div class="category-actions">
+                <button (click)="startEditing(category)" class="edit-btn" title="Edit">✏️</button>
+                <button (click)="deleteCategory(category.name)" class="delete-btn" title="Delete">🗑️</button>
+              </div>
+            </div>
+            <div class="category-info">
+              <small>Color: {{ category.color }}</small>
+            </div>
+          </div>
+
+          <div *ngIf="editingCategory?.name === category.name" class="category-edit">
+            <div class="edit-form">
+              <input 
+                [(ngModel)]="editName" 
+                class="edit-input"
+                placeholder="Category name">
+              <div class="color-picker-group">
+                <input 
+                  [(ngModel)]="editColor" 
+                  type="color" 
+                  class="color-input">
+                <button (click)="useRandomColor()" class="random-color-btn" title="Random Color">🎲</button>
+              </div>
+            </div>
+            <div class="edit-preview">
+              <span class="preview-tag" [style.background-color]="editColor">
+                {{ editName || 'Preview' }}
+              </span>
+            </div>
+            <div class="edit-actions">
+              <button (click)="saveEdit()" class="save-btn">Save</button>
+              <button (click)="cancelEditing()" class="cancel-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

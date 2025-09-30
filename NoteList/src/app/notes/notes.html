@@ -1,0 +1,99 @@
+<div class="notes-container">
+  <div class="header">
+    <h1>My Notes</h1>
+    <div class="header-actions">
+      <button [routerLink]="['/note-form']" class="add-btn">+ Add Note</button>
+      <button [routerLink]="['/categories']" class="manage-categories-btn">Manage Categories</button>
+      <button (click)="toggleCategoryFilter()" class="filter-btn">
+        {{ showCategoryFilter ? 'Hide Filters' : 'Show Filters' }}
+      </button>
+      <button (click)="refreshNotes()" class="refresh-btn">Refresh</button>
+      <button *ngIf="hasActiveFilters()" (click)="clearAllFilters()" class="clear-all-btn">Clear All Filters</button>
+    </div>
+  </div>
+  
+  <!-- Active Filters Indicator -->
+  <div *ngIf="hasActiveFilters()" class="active-filters">
+    <span class="filters-label">Active filters:</span>
+    <span *ngIf="searchTerm" class="filter-tag search-tag">
+      Search: "{{ searchTerm }}"
+      <button (click)="clearSearch()" class="remove-filter">×</button>
+    </span>
+    <span *ngFor="let category of selectedCategories" class="filter-tag category-tag" 
+          [style.background-color]="getCategoryColor(category)">
+      {{ category }}
+      <button (click)="toggleCategory(category)" class="remove-filter">×</button>
+    </span>
+  </div>
+
+  <!-- Search Notes -->
+  <div class="search-notes">
+    <div class="search-input-container">
+      <input 
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        placeholder="Search notes by title or description..."
+        class="search-input"
+        name="noteSearch">
+      <button 
+        *ngIf="searchTerm" 
+        (click)="clearSearch()" 
+        type="button"
+        class="clear-search-btn">
+        ×
+      </button>
+    </div>
+  </div>
+
+  <!-- Category Filter Panel -->
+  <div *ngIf="showCategoryFilter && allCategories.length > 0" class="category-filter">
+    <h3>Filter by Categories:</h3>
+    <div class="category-buttons">
+      <button 
+        *ngFor="let category of allCategories" 
+        (click)="toggleCategory(category)"
+        [class.selected]="isCategorySelected(category)"
+        [style.border-color]="getCategoryColor(category)"
+        class="category-btn">
+        <span class="category-color" [style.background-color]="getCategoryColor(category)"></span>
+        {{ category }}
+      </button>
+    </div>
+    <div class="filter-actions">
+      <button (click)="clearFilters()" class="clear-btn">Clear All Filters</button>
+      <span class="selected-count" *ngIf="selectedCategories.length > 0">
+        Selected: {{ selectedCategories.length }}
+      </span>
+    </div>
+  </div>
+  
+  <div *ngIf="loading" class="loading">
+    Loading notes...
+  </div>
+  
+  <div *ngIf="!loading && notes.length === 0" class="empty-state">
+    <p *ngIf="selectedCategories.length === 0">No notes found.</p>
+    <p *ngIf="selectedCategories.length > 0">No notes found in selected categories.</p>
+  </div>
+  
+  <div *ngIf="!loading && notes.length > 0" class="notes-list">
+    <div *ngFor="let note of notes" class="note-item" [routerLink]="['/note', note.id]">
+      <div class="note-image" *ngIf="note.img">
+        <img [src]="note.img" [alt]="note.title" />
+      </div>
+      <div class="note-content">
+        <h3>{{ note.title }}</h3>
+        <p class="note-description">{{ note.description }}</p>
+        <div class="note-categories">
+          <span *ngFor="let category of note.categories" 
+                class="category-tag"
+                [style.background-color]="getCategoryColor(category)"
+                [style.color]="'white'">
+            {{ category }}
+          </span>
+        </div>
+        <p class="note-date">{{ formatDate(note.created_at) }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="note-container">
+  <div *ngIf="loading" class="loading">
+    Loading note...
+  </div>
+  
+  <div *ngIf="!loading && !note" class="error">
+    Note not found.
+  </div>
+  
+  <div *ngIf="!loading && note" class="note-content">
+    <div class="note-header">
+      <h1>{{ note.title }}</h1>
+      <p class="note-description">{{ note.description }}</p>
+      <div class="note-meta">
+        <div class="note-categories">
+          <span *ngFor="let category of note.categories" class="category-tag">
+            {{ category }}
+          </span>
+        </div>
+        <p class="note-date">Created: {{ formatDate(note.created_at) }}</p>
+      </div>
+    </div>
+    
+    <div class="note-image" *ngIf="note.img">
+      <img [src]="note.img" [alt]="note.title" />
+    </div>
+    
+    <div class="note-body">
+      {{ note.content }}
+    </div>
+    
+    <div class="note-actions">
+      <button [routerLink]="['/note-form', note.id]" class="edit-btn">Edit</button>
+      <button [routerLink]="['/notes']" class="back-btn">Back to Notes</button>
+    </div>
+  </div>
+</div>

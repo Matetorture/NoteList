@@ -1,0 +1,132 @@
+<div class="note-form-container">
+  <div class="header">
+    <h1>{{ isEditMode ? 'Edit Note' : 'Create New Note' }}</h1>
+    <div class="header-actions">
+      <button type="button" (click)="cancel()" class="cancel-btn">
+        Back
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading...
+  </div>
+
+  <form *ngIf="!loading" (ngSubmit)="saveNote()" class="note-form">
+    <div class="form-group">
+      <label for="title">Title *</label>
+      <input 
+        id="title"
+        [(ngModel)]="note.title" 
+        name="title"
+        required 
+        class="form-input"
+        placeholder="Enter note title">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input 
+        id="description"
+        [(ngModel)]="note.description" 
+        name="description"
+        class="form-input"
+        placeholder="Short description">
+    </div>
+
+    <div class="form-group">
+      <label for="img">Image URL</label>
+      <input 
+        id="img"
+        [(ngModel)]="note.img" 
+        name="img"
+        type="url"
+        class="form-input"
+        placeholder="https://example.com/image.jpg">
+      
+      <div *ngIf="note.img" class="image-preview">
+        <img [src]="note.img" [alt]="note.title" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea 
+        id="content"
+        [(ngModel)]="note.content" 
+        name="content"
+        rows="4"
+        class="form-textarea"
+        placeholder="Write your note content here...">
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Categories 
+        <span class="selected-count" *ngIf="note.categories.length > 0">
+          ({{ note.categories.length }} selected)
+        </span>
+      </label>
+      
+      <!-- Category Search -->
+      <div class="category-search" *ngIf="availableCategories.length > 3">
+        <div class="search-input-container">
+          <input 
+            [(ngModel)]="categorySearchTerm"
+            (input)="onCategorySearch()"
+            placeholder="Search categories..."
+            class="category-search-input"
+            name="categorySearch">
+          <button 
+            *ngIf="categorySearchTerm" 
+            (click)="clearCategorySearch()" 
+            type="button"
+            class="clear-search-btn">
+            ×
+          </button>
+        </div>
+        <small class="search-info">
+          Showing {{ filteredCategories.length }} of {{ availableCategories.length }} categories
+        </small>
+      </div>
+      
+      <div class="categories-selection">
+        <div 
+          *ngFor="let category of filteredCategories" 
+          class="category-option"
+          (click)="toggleCategory(category.name)"
+          [class.selected]="isCategorySelected(category.name)"
+          [class.unselected]="!isCategorySelected(category.name)"
+          [style.border-color]="category.color">
+          <span 
+            class="category-color" 
+            [style.background-color]="category.color">
+          </span>
+          {{ category.name }}
+        </div>
+      </div>
+      
+      <div *ngIf="filteredCategories.length === 0 && categorySearchTerm" class="no-categories-found">
+        No categories found for "{{ categorySearchTerm }}"
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="saving" class="save-btn">
+        {{ saving ? 'Saving...' : 'Save Note' }}
+      </button>
+      
+      <button type="button" (click)="cancel()" class="cancel-btn">
+        Cancel
+      </button>
+      
+      <button 
+        *ngIf="isEditMode" 
+        type="button" 
+        (click)="deleteNote()" 
+        class="delete-btn">
+        Delete Note
+      </button>
+    </div>
+  </form>
+</div>
