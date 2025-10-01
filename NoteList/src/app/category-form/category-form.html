@@ -23,7 +23,9 @@
             [(ngModel)]="newCategoryColor" 
             type="color" 
             class="color-input">
-          <button (click)="useRandomColor()" class="random-color-btn" title="Random Color">🎲</button>
+          <button (click)="useRandomColor()" class="random-color-btn" title="Random Color">
+            <img src="../../assets/refresh.svg" alt="Random" class="icon-svg">
+          </button>
         </div>
         <button (click)="addCategory()" class="add-btn">Add Category</button>
       </div>
@@ -38,12 +40,37 @@
     <div class="categories-section">
       <h2>Existing Categories ({{ categories.length }})</h2>
       
+      <!-- Category Search -->
+      <div *ngIf="categories.length > 3" class="category-search">
+        <div class="search-input-container">
+          <input 
+            [(ngModel)]="searchTerm"
+            (input)="onSearchCategories()"
+            placeholder="Search categories..."
+            class="category-search-input">
+          <button 
+            *ngIf="searchTerm" 
+            (click)="clearCategorySearch()" 
+            type="button"
+            class="clear-search-btn">
+            ×
+          </button>
+        </div>
+        <small class="search-info">
+          Showing {{ filteredCategories.length }} of {{ categories.length }} categories
+        </small>
+      </div>
+      
       <div *ngIf="categories.length === 0" class="empty-state">
         <p>No categories found. Create your first category above!</p>
       </div>
 
+      <div *ngIf="filteredCategories.length === 0 && searchTerm" class="no-categories-found">
+        No categories found for "{{ searchTerm }}"
+      </div>
+
       <div class="categories-grid">
-        <div *ngFor="let category of categories" class="category-card">
+        <div *ngFor="let category of filteredCategories" class="category-card">
           <div *ngIf="editingCategory?.name !== category.name" class="category-view">
             <div class="category-header">
               <span 
@@ -52,8 +79,12 @@
                 {{ category.name }}
               </span>
               <div class="category-actions">
-                <button (click)="startEditing(category)" class="edit-btn" title="Edit">✏️</button>
-                <button (click)="deleteCategory(category.name)" class="delete-btn" title="Delete">🗑️</button>
+                <button (click)="startEditing(category)" class="edit-btn" title="Edit">
+                  <img src="../../assets/edit.svg" alt="Edit" class="icon-svg">
+                </button>
+                <button (click)="deleteCategory(category.name)" class="delete-btn" title="Delete">
+                  <img src="../../assets/delete.svg" alt="Delete" class="icon-svg">
+                </button>
               </div>
             </div>
             <div class="category-info">
@@ -72,7 +103,9 @@
                   [(ngModel)]="editColor" 
                   type="color" 
                   class="color-input">
-                <button (click)="useRandomColor()" class="random-color-btn" title="Random Color">🎲</button>
+                <button (click)="useRandomColor()" class="random-color-btn" title="Random Color">
+                  <img src="../../assets/refresh.svg" alt="Random" class="icon-svg">
+                </button>
               </div>
             </div>
             <div class="edit-preview">

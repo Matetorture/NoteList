@@ -139,14 +139,4 @@ export class Notes implements OnInit {
   hasActiveFilters(): boolean {
     return this.searchTerm.trim() !== '' || this.selectedCategories.length > 0;
   }
-
-  clearAllFilters() {
-    this.searchTerm = '';
-    this.selectedCategories = [];
-    this.showCategoryFilter = false;
-    this.filterService.clearFilters();
-    this.refreshNotes();
-  }
-
-
 }

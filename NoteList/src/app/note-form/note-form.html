@@ -141,11 +141,7 @@
           (click)="toggleCategory(category.name)"
           [class.selected]="isCategorySelected(category.name)"
           [class.unselected]="!isCategorySelected(category.name)"
-          [style.border-color]="category.color">
-          <span 
-            class="category-color" 
-            [style.background-color]="category.color">
-          </span>
+          [style.background-color]="category.color">
           {{ category.name }}
         </div>
       </div>

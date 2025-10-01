@@ -2,6 +2,10 @@
   padding: 20px;
   max-width: 1000px;
   margin: 0 auto;
+  background: var(--color-background, #ffffff);
+  color: var(--color-text, #333);
+  font-family: var(--app-font, 'Lato', sans-serif);
+  min-height: 100vh;
 }
 
 .header {
@@ -15,7 +19,7 @@
 
 .header h1 {
   margin: 0;
-  color: #333;
+  color: var(--color-text, #333);
 }
 
 .header-actions {
@@ -23,35 +27,48 @@
   gap: 10px;
 }
 
-.search-notes {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
+.search-filter-container {
+  background: var(--color-surface, #f8f9fa);
+  border: 1px solid rgba(0,0,0,0.1);
   border-radius: 8px;
-  padding: 15px;
   margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.search-notes {
+  padding: 15px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 0;
 }
 
 .search-input-container {
   position: relative;
   display: flex;
   align-items: center;
+  flex: 1;
 }
 
 .search-input {
   width: 100%;
   padding: 10px 15px;
   padding-right: 40px;
-  border: 1px solid #ced4da;
+  border: 1px solid rgba(0,0,0,0.2);
   border-radius: 6px;
   font-size: 14px;
-  background: white;
+  background: var(--color-background, white);
+  color: var(--color-text, #333);
   transition: border-color 0.2s ease;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #007acc;
-  box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.25);
+  border-color: var(--color-primary, #007acc);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.25);
 }
 
 .clear-search-btn {
@@ -60,7 +77,7 @@
   background: none;
   border: none;
   font-size: 18px;
-  color: #6c757d;
+  color: var(--color-text, #6c757d);
   cursor: pointer;
   padding: 0;
   width: 24px;
@@ -78,8 +95,8 @@
 }
 
 .active-filters {
-  background: #e3f2fd;
-  border: 1px solid #1976d2;
+  background: rgba(25, 118, 210, 0.1);
+  border: 1px solid var(--color-primary, #1976d2);
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 15px;
@@ -91,7 +108,7 @@
 
 .filters-label {
   font-weight: 600;
-  color: #1976d2;
+  color: var(--color-primary, #1976d2);
   margin-right: 5px;
 }
 
@@ -106,9 +123,9 @@
 }
 
 .search-tag {
-  background: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeaa7;
+  background: var(--color-secondary, #fff3cd);
+  color: var(--color-text, #856404);
+  border: 1px solid rgba(0,0,0,0.1);
 }
 
 .category-tag {
@@ -135,42 +152,75 @@
   background: rgba(0,0,0,0.4);
 }
 
-.search-tag .remove-filter {
-  background: #856404;
-  color: white;
-}
-
-.search-tag .remove-filter:hover {
-  background: #533921;
-}
-
 .add-btn, .manage-categories-btn, .filter-btn, .refresh-btn {
-  background: #007acc;
+  background: var(--color-secondary, #007acc);
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   text-decoration: none;
   display: inline-block;
 }
 
 .add-btn {
-  background: #28a745;
+  background: var(--color-primary, #28a745);
 }
 
 .add-btn:hover {
-  background: #218838;
+  opacity: 0.8;
+  transform: translateY(-1px);
 }
 
 .manage-categories-btn {
-  background: #17a2b8;
+  background: var(--color-secondary, #17a2b8);
 }
 
 .manage-categories-btn:hover {
-  background: #138496;
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.settings-btn {
+  background: transparent;
+  color: var(--color-text, #333);
+  border: 1px solid rgba(0,0,0,0.2);
+  padding: 10px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-btn:hover {
+  background: var(--color-surface, #f8f9fa);
+  transform: translateY(-1px);
+}
+
+.refresh-btn {
+  background: transparent;
+  color: var(--color-text, #333);
+  border: 1px solid rgba(0,0,0,0.2);
+  padding: 10px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refresh-btn:hover {
+  background: var(--color-surface, #f8f9fa);
+  transform: translateY(-1px);
 }
 
 .clear-all-btn {
@@ -179,23 +229,49 @@
 
 .clear-all-btn:hover {
   background: #c82333;
+  transform: translateY(-1px);
 }
 
-.filter-btn:hover, .refresh-btn:hover {
-  background: #005a9e;
+.filter-btn {
+  background: var(--color-secondary, #007acc);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filter-btn:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.filter-arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
 }
 
 .category-filter {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-radius: 0;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .category-filter h3 {
   margin: 0 0 15px 0;
-  color: #333;
+  color: var(--color-text, #333);
 }
 
 .category-buttons {
@@ -206,8 +282,8 @@
 }
 
 .category-btn {
-  background: #e9ecef;
-  border: 2px solid #ced4da;
+  background: var(--color-surface, #e9ecef);
+  border: 2px solid rgba(0,0,0,0.2);
   padding: 6px 12px;
   border-radius: 20px;
   cursor: pointer;
@@ -216,6 +292,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  color: var(--color-text, #333);
 }
 
 .category-color {
@@ -225,13 +302,14 @@
 }
 
 .category-btn:hover {
-  background: #dee2e6;
+  background: var(--color-primary, #dee2e6);
+  color: white;
 }
 
 .category-btn.selected {
-  background: #007acc;
+  background: var(--color-primary, #007acc);
   color: white;
-  border-color: #007acc;
+  border-color: var(--color-primary, #007acc);
 }
 
 .filter-actions {
@@ -256,7 +334,7 @@
 
 .selected-count {
   font-size: 12px;
-  color: #666;
+  color: var(--color-text, #666);
   font-weight: bold;
 }
 
@@ -264,12 +342,13 @@
   text-align: center;
   padding: 20px;
   font-style: italic;
+  color: var(--color-text, #666);
 }
 
 .empty-state {
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: var(--color-text, #666);
 }
 
 .notes-list {
@@ -279,8 +358,8 @@
 }
 
 .note-item {
-  background: white;
-  border: 1px solid #e9ecef;
+  background: var(--color-surface, white);
+  border: 1px solid rgba(0,0,0,0.1);
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
@@ -290,7 +369,6 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   display: flex;
   min-height: 120px;
-  max-height: 200px;
 }
 
 .note-item:hover {
@@ -327,16 +405,17 @@
 
 .note-item h3 {
   margin: 0 0 8px 0;
-  color: #333;
+  color: var(--color-text, #333);
   font-size: 1.1em;
   font-weight: 600;
 }
 
 .note-description {
-  color: #666;
+  color: var(--color-text, #666);
   font-size: 0.9em;
   margin: 0 0 10px 0;
   line-height: 1.4;
+  opacity: 0.8;
 }
 
 .note-categories {
@@ -357,9 +436,27 @@
 
 .note-date {
   font-size: 0.8em;
-  color: #999;
+  color: var(--color-text, #999);
   margin-top: auto;
   padding-top: 5px;
+  opacity: 0.7;
+}
+
+.icon-svg {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1); /* Makes SVG white */
+}
+
+/* Ensure icons adapt to theme changes */
+.settings-btn .icon-svg,
+.refresh-btn .icon-svg {
+  filter: var(--color-text, brightness(0.2));
+}
+
+.settings-btn:hover .icon-svg,
+.refresh-btn:hover .icon-svg {
+  filter: var(--color-text, brightness(0.1));
 }
 
 @media (max-width: 768px) {
@@ -377,7 +474,7 @@
     gap: 8px;
   }
   
-  .add-btn, .manage-categories-btn, .filter-btn, .refresh-btn, .clear-all-btn {
+  .add-btn, .manage-categories-btn, .filter-btn, .refresh-btn {
     flex: 1;
     min-width: 120px;
     text-align: center;
@@ -395,37 +492,9 @@
   
   .search-notes {
     padding: 10px;
-  }
-  
-  .note-item {
     flex-direction: column;
-    min-height: auto;
+    align-items: stretch;
   }
   
-  .note-image {
-    width: 100%;
-    height: 100%;
-    order: -1;
-    border-radius: 8px 8px 0 0;
-  }
-  
-  .note-image img {
-    height: 100%;
-    width: 100%;
-  }
-}
-
-.sample-btn {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-.sample-btn:hover {
-  background: #218838;
+  /* ...existing code... */
 }

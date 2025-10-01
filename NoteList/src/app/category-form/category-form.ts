@@ -13,16 +13,17 @@ import { NoteService, Category } from '../services/note.service';
 })
 export class CategoryForm implements OnInit {
   categories: Category[] = [];
+  filteredCategories: Category[] = [];
   loading = true;
   
-  // New category form
   newCategoryName = '';
   newCategoryColor = '#4CAF50';
   
-  // Edit category
   editingCategory: Category | null = null;
   editName = '';
   editColor = '';
+
+  searchTerm = '';
 
   constructor(
     private router: Router,
@@ -38,7 +39,23 @@ export class CategoryForm implements OnInit {
   async loadCategories() {
     this.loading = true;
     this.categories = await this.noteService.getCategories();
+    this.filteredCategories = [...this.categories];
     this.loading = false;
+  }
+
+  onSearchCategories() {
+    if (!this.searchTerm.trim()) {
+      this.filteredCategories = [...this.categories];
+    } else {
+      this.filteredCategories = this.categories.filter(category =>
+        category.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
+
+  clearCategorySearch() {
+    this.searchTerm = '';
+    this.filteredCategories = [...this.categories];
   }
 
   async addCategory() {
@@ -62,7 +79,8 @@ export class CategoryForm implements OnInit {
       await this.noteService.saveCategory(newCategory);
       await this.loadCategories();
       this.newCategoryName = '';
-      this.newCategoryColor = this.getRandomColor(); // Generate new random color for next category
+      this.newCategoryColor = this.getRandomColor();
+      this.onSearchCategories();
     } catch (error) {
       console.error('Error adding category:', error);
       alert('Error adding category!');
@@ -111,6 +129,7 @@ export class CategoryForm implements OnInit {
       await this.noteService.saveCategory(updatedCategory);
       await this.loadCategories();
       this.cancelEditing();
+      this.onSearchCategories();
     } catch (error) {
       console.error('Error updating category:', error);
       alert('Error updating category!');
@@ -122,6 +141,7 @@ export class CategoryForm implements OnInit {
       try {
         await this.noteService.deleteCategory(categoryName);
         await this.loadCategories();
+        this.onSearchCategories();
       } catch (error) {
         console.error('Error deleting category:', error);
         alert('Error deleting category!');

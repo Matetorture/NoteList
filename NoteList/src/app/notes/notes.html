@@ -4,11 +4,12 @@
     <div class="header-actions">
       <button [routerLink]="['/note-form']" class="add-btn">+ Add Note</button>
       <button [routerLink]="['/categories']" class="manage-categories-btn">Manage Categories</button>
-      <button (click)="toggleCategoryFilter()" class="filter-btn">
-        {{ showCategoryFilter ? 'Hide Filters' : 'Show Filters' }}
+      <button [routerLink]="['/settings']" class="settings-btn" title="Settings">
+        <img src="../../assets/settings.svg" alt="Settings" class="icon-svg">
       </button>
-      <button (click)="refreshNotes()" class="refresh-btn">Refresh</button>
-      <button *ngIf="hasActiveFilters()" (click)="clearAllFilters()" class="clear-all-btn">Clear All Filters</button>
+      <button (click)="refreshNotes()" class="refresh-btn" title="Refresh">
+        <img src="../../assets/refresh.svg" alt="Refresh" class="icon-svg">
+      </button>
     </div>
   </div>
   
@@ -26,44 +27,54 @@
     </span>
   </div>
 
-  <!-- Search Notes -->
-  <div class="search-notes">
-    <div class="search-input-container">
-      <input 
-        [(ngModel)]="searchTerm"
-        (input)="onSearch()"
-        placeholder="Search notes by title or description..."
-        class="search-input"
-        name="noteSearch">
-      <button 
-        *ngIf="searchTerm" 
-        (click)="clearSearch()" 
-        type="button"
-        class="clear-search-btn">
-        ×
+  <!-- Search and Filter Container -->
+  <div class="search-filter-container">
+    <!-- Search Notes -->
+    <div class="search-notes">
+      <div class="search-input-container">
+        <input 
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+          placeholder="Search notes by title or description..."
+          class="search-input"
+          name="noteSearch">
+        <button 
+          *ngIf="searchTerm" 
+          (click)="clearSearch()" 
+          type="button"
+          class="clear-search-btn">
+          ×
+        </button>
+      </div>
+      <button (click)="toggleCategoryFilter()" class="filter-btn" [title]="showCategoryFilter ? 'Hide Filters' : 'Show Filters'">
+        <svg class="icon-svg filter-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline *ngIf="!showCategoryFilter" points="6,9 12,15 18,9" stroke-width="2"></polyline>
+          <polyline *ngIf="showCategoryFilter" points="18,15 12,9 6,15" stroke-width="2"></polyline>
+        </svg>
+        Filters
       </button>
     </div>
-  </div>
 
-  <!-- Category Filter Panel -->
-  <div *ngIf="showCategoryFilter && allCategories.length > 0" class="category-filter">
-    <h3>Filter by Categories:</h3>
-    <div class="category-buttons">
-      <button 
-        *ngFor="let category of allCategories" 
-        (click)="toggleCategory(category)"
-        [class.selected]="isCategorySelected(category)"
-        [style.border-color]="getCategoryColor(category)"
-        class="category-btn">
-        <span class="category-color" [style.background-color]="getCategoryColor(category)"></span>
-        {{ category }}
-      </button>
-    </div>
-    <div class="filter-actions">
-      <button (click)="clearFilters()" class="clear-btn">Clear All Filters</button>
-      <span class="selected-count" *ngIf="selectedCategories.length > 0">
-        Selected: {{ selectedCategories.length }}
-      </span>
+    <!-- Category Filter Panel -->
+    <div *ngIf="showCategoryFilter && allCategories.length > 0" class="category-filter">
+      <h3>Filter by Categories:</h3>
+      <div class="category-buttons">
+        <button 
+          *ngFor="let category of allCategories" 
+          (click)="toggleCategory(category)"
+          [class.selected]="isCategorySelected(category)"
+          [style.border-color]="getCategoryColor(category)"
+          class="category-btn">
+          <span class="category-color" [style.background-color]="getCategoryColor(category)"></span>
+          {{ category }}
+        </button>
+      </div>
+      <div class="filter-actions">
+        <button (click)="clearFilters()" class="clear-btn">Clear All Filters</button>
+        <span class="selected-count" *ngIf="selectedCategories.length > 0">
+          Selected: {{ selectedCategories.length }}
+        </span>
+      </div>
     </div>
   </div>
   

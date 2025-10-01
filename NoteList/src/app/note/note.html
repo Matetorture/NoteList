@@ -21,7 +21,9 @@
       <p *ngIf="note.description && note.description.trim()" class="note-description">{{ note.description }}</p>
       <div class="note-meta">
         <div class="note-categories">
-          <span *ngFor="let category of note.categories" class="category-tag">
+          <span *ngFor="let category of note.categories" 
+                class="category-tag"
+                [style.background-color]="getCategoryColor(category)">
             {{ category }}
           </span>
         </div>

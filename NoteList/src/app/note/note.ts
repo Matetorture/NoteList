@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { NoteService, Note as NoteModel } from '../services/note.service';
+import { NoteService, Note as NoteModel, Category } from '../services/note.service';
 
 @Component({
   selector: 'app-note',
@@ -13,6 +13,7 @@ import { NoteService, Note as NoteModel } from '../services/note.service';
 })
 export class Note implements OnInit {
   note: NoteModel | null = null;
+  categories: Category[] = [];
   loading = true;
 
   constructor(
@@ -21,11 +22,23 @@ export class Note implements OnInit {
   ) {}
 
   async ngOnInit() {
+    // Scroll to top immediately when component loads
+    window.scrollTo(0, 0);
+    
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    
+    // Load categories first to get colors
+    this.categories = await this.noteService.getCategories();
+    
     if (id) {
       this.note = await this.noteService.getNoteById(id);
     }
     this.loading = false;
+  }
+
+  getCategoryColor(categoryName: string): string {
+    const category = this.categories.find(c => c.name === categoryName);
+    return category?.color || '#cccccc';
   }
 
   formatDate(dateString: string): string {

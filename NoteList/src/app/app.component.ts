@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { SettingsService } from "./services/settings.service";
 
 @Component({
   selector: "app-root",
@@ -8,10 +9,12 @@ import { RouterOutlet } from "@angular/router";
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })
-export class AppComponent {
-  greetingMessage = "";
+export class AppComponent implements OnInit {
+  title = "NoteList";
 
-  greet(event: SubmitEvent, name: string): void {
-    event.preventDefault();
+  constructor(private settingsService: SettingsService) {}
+
+  ngOnInit() {
+    this.settingsService.loadSettings();
   }
 }
