@@ -8,9 +8,17 @@
   </div>
   
   <div *ngIf="!loading && note" class="note-content">
-    <div class="note-header">
+    <div class="header">
       <h1>{{ note.title }}</h1>
-      <p class="note-description">{{ note.description }}</p>
+      <div class="header-actions">
+        <button [routerLink]="['/notes']" class="back-btn-header">
+          Back
+        </button>
+      </div>
+    </div>
+
+    <div class="note-header">
+      <p *ngIf="note.description && note.description.trim()" class="note-description">{{ note.description }}</p>
       <div class="note-meta">
         <div class="note-categories">
           <span *ngFor="let category of note.categories" class="category-tag">
@@ -22,10 +30,10 @@
     </div>
     
     <div class="note-image" *ngIf="note.img">
-      <img [src]="note.img" [alt]="note.title" />
+      <img [src]="note.img" [alt]="note.title" loading="lazy" />
     </div>
     
-    <div class="note-body">
+    <div *ngIf="note.content" class="note-body">
       {{ note.content }}
     </div>
     

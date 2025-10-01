@@ -19,6 +19,44 @@
   margin: 20px 0;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 15px;
+}
+
+.header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.back-btn-header {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.back-btn-header:hover {
+  background: #5a6268;
+}
+
 .note-header {
   margin-bottom: 25px;
 }

@@ -79,7 +79,7 @@
   <div *ngIf="!loading && notes.length > 0" class="notes-list">
     <div *ngFor="let note of notes" class="note-item" [routerLink]="['/note', note.id]">
       <div class="note-image" *ngIf="note.img">
-        <img [src]="note.img" [alt]="note.title" />
+        <img [src]="note.img" [alt]="note.title" loading="lazy" />
       </div>
       <div class="note-content">
         <h3>{{ note.title }}</h3>

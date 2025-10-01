@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NoteService, Note, Category } from '../services/note.service';
 
 @Component({
   selector: 'app-note-form',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   standalone: true,
   templateUrl: './note-form.html',
   styleUrl: './note-form.css'
@@ -28,6 +28,8 @@ export class NoteForm implements OnInit {
   isEditMode = false;
   loading = true;
   saving = false;
+  selectedImageFile: File | null = null;
+  isDragOver = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -135,7 +137,91 @@ export class NoteForm implements OnInit {
     }
   }
 
-  cancel() {
-    this.router.navigate(['/notes']);
+  onImageFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+    
+    if (file) {
+      this.processImageFile(file);
+    }
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = true;
+  }
+
+  onDragEnter(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = true;
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    // Only set isDragOver to false if we're actually leaving the drop zone
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const x = event.clientX;
+    const y = event.clientY;
+    
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+      this.isDragOver = false;
+    }
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = false;
+    
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      this.processImageFile(file);
+    }
+  }
+
+  private processImageFile(file: File) {
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select a valid image file!');
+      return;
+    }
+    
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image file size must be less than 5MB!');
+      return;
+    }
+    
+    this.selectedImageFile = file;
+    this.convertImageToBase64(file);
+  }
+
+  convertImageToBase64(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.note.img = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  clearImage() {
+    this.note.img = '';
+    this.selectedImageFile = null;
+    // Clear file input
+    const fileInput = document.getElementById('imageFile') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+  }
+
+  triggerFileInput() {
+    const fileInput = document.getElementById('imageFile') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click();
+    }
   }
 }
