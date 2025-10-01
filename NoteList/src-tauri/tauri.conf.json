@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "notelist",
+  "productName": "NoteList",
   "version": "0.1.0",
   "identifier": "com.x.notelist",
   "build": {
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "notelist",
+        "title": "NoteList",
         "width": 800,
         "height": 600
       }

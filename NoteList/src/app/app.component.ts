@@ -10,8 +10,6 @@ import { SettingsService } from "./services/settings.service";
   styleUrl: "./app.component.css",
 })
 export class AppComponent implements OnInit {
-  title = "NoteList";
-
   constructor(private settingsService: SettingsService) {}
 
   ngOnInit() {
