@@ -86,8 +86,8 @@
 
 .form-input:focus, .form-textarea:focus {
   outline: none;
-  border-color: #007acc;
-  box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.25);
+  border-color: var(--color-primary, #007acc);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.25);
 }
 
 .form-textarea {
