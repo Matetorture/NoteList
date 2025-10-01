@@ -445,10 +445,9 @@
 .icon-svg {
   width: 18px;
   height: 18px;
-  filter: brightness(0) invert(1); /* Makes SVG white */
+  filter: brightness(0) invert(1);
 }
 
-/* Ensure icons adapt to theme changes */
 .settings-btn .icon-svg,
 .refresh-btn .icon-svg {
   filter: var(--color-text, brightness(0.2));
@@ -459,7 +458,7 @@
   filter: var(--color-text, brightness(0.1));
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .notes-container {
     padding: 10px;
   }
@@ -495,6 +494,4 @@
     flex-direction: column;
     align-items: stretch;
   }
-  
-  /* ...existing code... */
 }
