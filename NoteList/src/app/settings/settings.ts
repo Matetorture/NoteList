@@ -140,4 +140,8 @@ export class Settings implements OnInit {
     }
     return THEME_COLORS[this.settings.theme as keyof typeof THEME_COLORS] || THEME_COLORS.light;
   }
+
+  getFontClass(font: string): string {
+    return 'font-option-' + font.toLowerCase().replace(/\s+/g, '-');
+  }
 }
