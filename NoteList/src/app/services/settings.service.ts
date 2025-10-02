@@ -28,11 +28,6 @@ export interface AppSettings {
     text: string;
   };
   
-  // Security & Privacy
-  lockWithPin: boolean;
-  pin?: string;
-  autoLockTimeout: number; // in minutes
-  
   // Advanced Settings
   keyboardShortcuts: boolean;
 }
@@ -41,8 +36,6 @@ export const DEFAULT_SETTINGS: AppSettings = {
   showActiveFilters: true,
   font: 'Lato',
   theme: 'light',
-  lockWithPin: false,
-  autoLockTimeout: 5,
   keyboardShortcuts: true
 };
 
@@ -134,15 +127,6 @@ export class SettingsService {
     // UI Customization (non-theme)
     if (oldSettings.font !== newSettings.font) {
       console.log('UI Setting - Font changed to:', newSettings.font);
-    }
-    
-    // Security & Privacy
-    if (oldSettings.lockWithPin !== newSettings.lockWithPin) {
-      console.log('Security Setting - Lock with PIN:', newSettings.lockWithPin ? 'ENABLED' : 'DISABLED');
-    }
-    
-    if (oldSettings.autoLockTimeout !== newSettings.autoLockTimeout) {
-      console.log('Security Setting - Auto-lock timeout:', newSettings.autoLockTimeout, 'minutes');
     }
     
     // Advanced Settings

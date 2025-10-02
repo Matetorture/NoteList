@@ -91,10 +91,6 @@ export class Settings implements OnInit {
     this.saveSettings();
   }
 
-  onSecuritySettingChange() {
-    this.saveSettings();
-  }
-
   onAdvancedSettingChange() {
     this.saveSettings();
   }
