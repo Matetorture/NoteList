@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 export interface AppSettings {
   // Display Settings
   showActiveFilters: boolean;
-  autoOpenCategoryFilters: boolean;
   
   // UI Customization
   font: 
@@ -40,7 +39,6 @@ export interface AppSettings {
 
 export const DEFAULT_SETTINGS: AppSettings = {
   showActiveFilters: true,
-  autoOpenCategoryFilters: false,
   font: 'Lato',
   theme: 'light',
   lockWithPin: false,
@@ -131,10 +129,6 @@ export class SettingsService {
     // Display Settings
     if (oldSettings.showActiveFilters !== newSettings.showActiveFilters) {
       console.log('Display Setting - Show Active Filters:', newSettings.showActiveFilters ? 'ON' : 'OFF');
-    }
-    
-    if (oldSettings.autoOpenCategoryFilters !== newSettings.autoOpenCategoryFilters) {
-      console.log('Display Setting - Auto Open Category Filters:', newSettings.autoOpenCategoryFilters ? 'ON' : 'OFF');
     }
     
     // UI Customization (non-theme)

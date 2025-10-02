@@ -14,7 +14,7 @@
   </div>
   
   <!-- Active Filters Indicator -->
-  <div *ngIf="hasActiveFilters()" class="active-filters">
+  <div *ngIf="shouldShowActiveFilters()" class="active-filters">
     <span class="filters-label">Active filters:</span>
     <span *ngIf="searchTerm" class="filter-tag search-tag">
       Search: "{{ searchTerm }}"

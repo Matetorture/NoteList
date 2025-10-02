@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { NoteService, Note, Category } from '../services/note.service';
 import { NotesFilterService } from '../services/notes-filter.service';
+import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-notes',
@@ -21,13 +22,19 @@ export class Notes implements OnInit {
   searchTerm = '';
   loading = true;
   showCategoryFilter = false;
+  settings: any;
 
   constructor(
     private noteService: NoteService,
-    private filterService: NotesFilterService
-  ) {}
+    private filterService: NotesFilterService,
+    private settingsService: SettingsService
+  ) {
+    this.settings = this.settingsService.getSettings();
+  }
 
   async ngOnInit() {
+    this.refreshSettings();
+    
     // Restore filter state
     const filterState = this.filterService.getFilterState();
     this.searchTerm = filterState.searchTerm;
@@ -138,5 +145,13 @@ export class Notes implements OnInit {
 
   hasActiveFilters(): boolean {
     return this.searchTerm.trim() !== '' || this.selectedCategories.length > 0;
+  }
+
+  shouldShowActiveFilters(): boolean {
+    return this.settings.showActiveFilters && this.hasActiveFilters();
+  }
+
+  refreshSettings(): void {
+    this.settings = this.settingsService.getSettings();
   }
 }
