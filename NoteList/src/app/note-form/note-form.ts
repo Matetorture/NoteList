@@ -29,7 +29,6 @@ export class NoteForm implements OnInit {
   loading = true;
   saving = false;
   selectedImageFile: File | null = null;
-  isDragOver = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -146,42 +145,7 @@ export class NoteForm implements OnInit {
     }
   }
 
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isDragOver = true;
-  }
 
-  onDragEnter(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isDragOver = true;
-  }
-
-  onDragLeave(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    // Only set isDragOver to false if we're actually leaving the drop zone
-    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = event.clientX;
-    const y = event.clientY;
-    
-    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
-      this.isDragOver = false;
-    }
-  }
-
-  onDrop(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isDragOver = false;
-    
-    const files = event.dataTransfer?.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      this.processImageFile(file);
-    }
-  }
 
   private processImageFile(file: File) {
     // Validate file type
