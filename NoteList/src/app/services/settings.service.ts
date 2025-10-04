@@ -20,6 +20,7 @@ export interface ThemeOption {
 
 export interface AppSettings {
   showActiveFilters: boolean;
+  showSuccessAlerts: boolean;
   font: 
   | 'Lato' 
   | 'Open Sans' 
@@ -91,6 +92,7 @@ export const AVAILABLE_FONTS: FontOption[] = [
 
 export const DEFAULT_SETTINGS: AppSettings = {
   showActiveFilters: true,
+  showSuccessAlerts: true,
   font: 'Lato',
   theme: 'dark',
   keyboardShortcuts: true
@@ -423,6 +425,10 @@ export class SettingsService {
       return theme.colors[colorType as keyof typeof theme.colors] || '#000000';
     }
     return '#000000';
+  }
+
+  getShowSuccessAlerts(): boolean {
+    return this.settings.showSuccessAlerts;
   }
 
   private getColorBrightness(color: string): number {

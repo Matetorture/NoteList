@@ -25,6 +25,14 @@
         </label>
         <p class="setting-description">Display active filter indicators at the top of the notes list</p>
       </div>
+
+      <div class="setting-item">
+        <label class="setting-label">
+          <input type="checkbox" [(ngModel)]="settings.showSuccessAlerts" (change)="onDisplaySettingChange()">
+          Show Success Alerts
+        </label>
+        <p class="setting-description">Display success messages when actions are completed successfully</p>
+      </div>
     </div>
 
     <!-- UI Customization -->

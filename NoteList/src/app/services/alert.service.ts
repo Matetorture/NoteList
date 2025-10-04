@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { SettingsService } from './settings.service';
 
 export interface AlertData {
   id: string;
@@ -17,11 +18,17 @@ export class AlertService {
   private alertsSubject = new BehaviorSubject<AlertData[]>([]);
   public alerts$ = this.alertsSubject.asObservable();
 
+  constructor(private settingsService: SettingsService) {}
+
   private generateId(): string {
     return Date.now().toString() + Math.random().toString(36).substr(2, 9);
   }
 
   success(title: string, message: string): void {
+    if (!this.settingsService.getShowSuccessAlerts()) {
+      return;
+    }
+
     const alert: AlertData = {
       id: this.generateId(),
       type: 'success',
