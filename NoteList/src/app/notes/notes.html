@@ -101,7 +101,7 @@
             {{ category }}
           </span>
         </div>
-        <p class="note-date">{{ formatDate(note.created_at) }}</p>
+        <p *ngIf="shouldShowCreationDates()" class="note-date">{{ formatDate(note.created_at) }}</p>
       </div>
     </div>
   </div>

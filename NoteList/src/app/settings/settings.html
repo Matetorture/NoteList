@@ -33,6 +33,14 @@
         </label>
         <p class="setting-description">Display success messages when actions are completed successfully</p>
       </div>
+
+      <div class="setting-item">
+        <label class="setting-label">
+          <input type="checkbox" [(ngModel)]="settings.showCreationDates" (change)="onDisplaySettingChange()">
+          Show Creation Dates
+        </label>
+        <p class="setting-description">Display creation dates for notes</p>
+      </div>
     </div>
 
     <!-- UI Customization -->

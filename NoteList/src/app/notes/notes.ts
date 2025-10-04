@@ -160,6 +160,10 @@ export class Notes implements OnInit, OnDestroy {
     return this.settings.showActiveFilters && this.hasActiveFilters();
   }
 
+  shouldShowCreationDates(): boolean {
+    return this.settings.showCreationDates;
+  }
+
   refreshSettings(): void {
     this.settings = this.settingsService.getSettings();
   }

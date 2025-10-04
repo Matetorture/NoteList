@@ -21,6 +21,7 @@ export interface ThemeOption {
 export interface AppSettings {
   showActiveFilters: boolean;
   showSuccessAlerts: boolean;
+  showCreationDates: boolean;
   font: 
   | 'Lato' 
   | 'Open Sans' 
@@ -93,6 +94,7 @@ export const AVAILABLE_FONTS: FontOption[] = [
 export const DEFAULT_SETTINGS: AppSettings = {
   showActiveFilters: true,
   showSuccessAlerts: true,
+  showCreationDates: true,
   font: 'Lato',
   theme: 'dark',
   keyboardShortcuts: true
@@ -429,6 +431,10 @@ export class SettingsService {
 
   getShowSuccessAlerts(): boolean {
     return this.settings.showSuccessAlerts;
+  }
+
+  getShowCreationDates(): boolean {
+    return this.settings.showCreationDates;
   }
 
   private getColorBrightness(color: string): number {
