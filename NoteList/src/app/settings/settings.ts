@@ -18,7 +18,7 @@ export class Settings implements OnInit, OnDestroy {
   settings: AppSettings = DEFAULT_SETTINGS;
   loading = true;
   saving = false;
-  previousTheme: string = 'light'; // Track previous theme
+  previousTheme: string = 'dark';
   
   fonts: FontOption[] = [];
   themes: ThemeOption[] = [];
@@ -41,11 +41,11 @@ export class Settings implements OnInit, OnDestroy {
     this.themes = this.settingsService.getAvailableThemes();
     this.generateFontStyles();
     this.showCustomColors = this.settings.theme === 'custom';
-    this.previousTheme = this.settings.theme === 'custom' ? 'light' : this.settings.theme;
+    this.previousTheme = this.settings.theme === 'custom' ? 'dark' : this.settings.theme;
     
     // Initialize custom colors if needed
     if (this.settings.theme === 'custom' && !this.settings.customColors) {
-      this.settings.customColors = { ...THEME_COLORS['light'] };
+      this.settings.customColors = { ...THEME_COLORS['dark'] };
     }
     
     this.setupKeyboardShortcuts();
@@ -66,7 +66,7 @@ export class Settings implements OnInit, OnDestroy {
       this.settings.customColors = undefined;
     } else if (!wasCustom) {
       // Switching TO custom - use colors from the previous theme
-      const sourceTheme = this.previousTheme || 'light';
+      const sourceTheme = this.previousTheme || 'dark';
       this.settings.customColors = { 
         ...THEME_COLORS[sourceTheme as keyof typeof THEME_COLORS] 
       };
@@ -146,7 +146,7 @@ export class Settings implements OnInit, OnDestroy {
     if (this.settings.theme === 'custom' && this.settings.customColors) {
       return this.settings.customColors;
     }
-    return THEME_COLORS[this.settings.theme] || THEME_COLORS['light'];
+    return THEME_COLORS[this.settings.theme] || THEME_COLORS['dark'];
   }
 
   private setupKeyboardShortcuts(): void {

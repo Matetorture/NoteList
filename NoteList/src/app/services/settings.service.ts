@@ -92,14 +92,14 @@ export const AVAILABLE_FONTS: FontOption[] = [
 export const DEFAULT_SETTINGS: AppSettings = {
   showActiveFilters: true,
   font: 'Lato',
-  theme: 'light',
+  theme: 'dark',
   keyboardShortcuts: true
 };
 
 export const AVAILABLE_THEMES: ThemeOption[] = [
   {
-    key: 'light',
-    name: 'Light Theme',
+    key: 'dark',
+    name: 'Dark Theme',
     colors: {
       primary: '#1976D2',
       secondary: '#FFC107',
@@ -109,8 +109,8 @@ export const AVAILABLE_THEMES: ThemeOption[] = [
     }
   },
   {
-    key: 'dark',
-    name: 'Dark Theme',
+    key: 'light',
+    name: 'Light Theme',
     colors: {
       primary: '#90CAF9',
       secondary: '#ffc71d',
@@ -226,7 +226,7 @@ export class SettingsService {
     
     const colors = this.settings.theme === 'custom' && this.settings.customColors 
       ? this.settings.customColors 
-      : THEME_COLORS[this.settings.theme] || THEME_COLORS['light'];
+      : THEME_COLORS[this.settings.theme] || THEME_COLORS['dark'];
     
     Object.entries(colors).forEach(([key, value]) => {
       document.documentElement.style.setProperty(`--color-${key}`, value as string);
