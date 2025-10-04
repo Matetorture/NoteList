@@ -45,6 +45,7 @@ export class Notes implements OnInit, OnDestroy {
     this.showCategoryFilter = filterState.showCategoryFilter;
     
     await this.loadData();
+    await this.refreshNotes();
   }
 
   ngOnDestroy() {
