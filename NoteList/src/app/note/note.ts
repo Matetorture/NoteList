@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NoteService, Note as NoteModel, Category } from '../services/note.service';
+import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
 
 @Component({
   selector: 'app-note',
@@ -11,14 +12,16 @@ import { NoteService, Note as NoteModel, Category } from '../services/note.servi
   templateUrl: './note.html',
   styleUrl: './note.css'
 })
-export class Note implements OnInit {
+export class Note implements OnInit, OnDestroy {
   note: NoteModel | null = null;
   categories: Category[] = [];
   loading = true;
 
   constructor(
     private route: ActivatedRoute,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private keyboardShortcuts: KeyboardShortcutsService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -26,6 +29,7 @@ export class Note implements OnInit {
     window.scrollTo(0, 0);
     
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.setupKeyboardShortcuts(id);
     
     // Load categories first to get colors
     this.categories = await this.noteService.getCategories();
@@ -50,5 +54,28 @@ export class Note implements OnInit {
     const year = date.getFullYear();
     
     return `${hours}:${minutes} ${day}-${month}-${year}`;
+  }
+
+  ngOnDestroy() {
+    this.keyboardShortcuts.stopListening();
+    this.keyboardShortcuts.clearAllShortcuts();
+  }
+
+  setupKeyboardShortcuts(noteId: number) {
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Enter',
+      action: () => {
+        if (noteId) {
+          this.router.navigate(['/note-form', noteId]);
+        }
+      }
+    });
+
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Escape',
+      action: () => this.router.navigate(['/notes'])
+    });
+
+    this.keyboardShortcuts.startListening();
   }
 }

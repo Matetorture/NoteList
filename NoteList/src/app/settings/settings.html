@@ -81,6 +81,15 @@
           <input type="checkbox" [(ngModel)]="settings.keyboardShortcuts" (change)="onAdvancedSettingChange()">
           Enable Keyboard Shortcuts
         </label>
+        <div class="setting-description">
+          <strong>Available shortcuts:</strong><br>
+          <code>F5</code> or <code>Ctrl+R</code> - Refresh notes<br>
+          <code>Ctrl+N</code> - Add new note (in notes view)<br>
+          <code>/</code> or <code>Enter</code> - Focus search bar<br>
+          <code>Ctrl+F</code> - Toggle filters (in notes view)<br>
+          <code>Enter</code> - Edit note (when viewing note)<br>
+          <code>Escape</code> - Navigate back
+        </div>
       </div>
       
       <div class="setting-item">

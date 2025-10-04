@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NoteService, Category } from '../services/note.service';
 import { AlertService } from '../services/alert.service';
+import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
 
 @Component({
   selector: 'app-category-form',
@@ -12,7 +13,7 @@ import { AlertService } from '../services/alert.service';
   templateUrl: './category-form.html',
   styleUrl: './category-form.css'
 })
-export class CategoryForm implements OnInit {
+export class CategoryForm implements OnInit, OnDestroy {
   categories: Category[] = [];
   filteredCategories: Category[] = [];
   loading = true;
@@ -28,6 +29,7 @@ export class CategoryForm implements OnInit {
 
   constructor(
     private router: Router,
+    private keyboardShortcuts: KeyboardShortcutsService,
     private noteService: NoteService,
     private alertService: AlertService
   ) {
@@ -35,6 +37,7 @@ export class CategoryForm implements OnInit {
   }
 
   async ngOnInit() {
+    this.setupKeyboardShortcuts();
     await this.loadCategories();
   }
 
@@ -219,6 +222,37 @@ export class CategoryForm implements OnInit {
       this.editColor = this.getRandomColor();
     } else {
       this.newCategoryColor = this.getRandomColor();
+    }
+  }
+
+  ngOnDestroy() {
+    this.keyboardShortcuts.stopListening();
+    this.keyboardShortcuts.clearAllShortcuts();
+  }
+
+  setupKeyboardShortcuts() {
+    this.keyboardShortcuts.registerShortcut({
+      key: '/',
+      action: () => this.focusCategorySearch()
+    });
+
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Enter',
+      action: () => this.focusCategorySearch()
+    });
+
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Escape',
+      action: () => this.router.navigate(['/notes'])
+    });
+
+    this.keyboardShortcuts.startListening();
+  }
+
+  focusCategorySearch() {
+    const searchInput = document.getElementById('categorySearch') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.focus();
     }
   }
 }

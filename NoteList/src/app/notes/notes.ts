@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { NoteService, Note, Category } from '../services/note.service';
 import { NotesFilterService } from '../services/notes-filter.service';
 import { SettingsService } from '../services/settings.service';
+import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
 
 @Component({
   selector: 'app-notes',
@@ -13,7 +14,7 @@ import { SettingsService } from '../services/settings.service';
   templateUrl: './notes.html',
   styleUrl: './notes.css'
 })
-export class Notes implements OnInit {
+export class Notes implements OnInit, OnDestroy {
   notes: Note[] = [];
   allNotes: Note[] = [];
   allCategories: string[] = [];
@@ -27,13 +28,16 @@ export class Notes implements OnInit {
   constructor(
     private noteService: NoteService,
     private filterService: NotesFilterService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private keyboardShortcuts: KeyboardShortcutsService,
+    private router: Router
   ) {
     this.settings = this.settingsService.getSettings();
   }
 
   async ngOnInit() {
     this.refreshSettings();
+    this.setupKeyboardShortcuts();
     
     // Restore filter state
     const filterState = this.filterService.getFilterState();
@@ -42,6 +46,11 @@ export class Notes implements OnInit {
     this.showCategoryFilter = filterState.showCategoryFilter;
     
     await this.loadData();
+  }
+
+  ngOnDestroy() {
+    this.keyboardShortcuts.stopListening();
+    this.keyboardShortcuts.clearAllShortcuts();
   }
 
   async loadData() {
@@ -153,5 +162,43 @@ export class Notes implements OnInit {
 
   refreshSettings(): void {
     this.settings = this.settingsService.getSettings();
+  }
+
+  setupKeyboardShortcuts() {
+    this.keyboardShortcuts.registerShortcut({
+      key: 'n',
+      ctrl: true,
+      action: () => this.router.navigate(['/note-form'])
+    });
+
+    this.keyboardShortcuts.registerShortcut({
+      key: '/',
+      action: () => this.focusSearchBar()
+    });
+
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Enter',
+      action: () => this.focusSearchBar()
+    });
+
+    this.keyboardShortcuts.registerShortcut({
+      key: 'f',
+      ctrl: true,
+      action: () => this.toggleCategoryFilter()
+    });
+
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Escape',
+      action: () => this.router.navigate(['/notes'])
+    });
+
+    this.keyboardShortcuts.startListening();
+  }
+
+  focusSearchBar() {
+    const searchInput = document.getElementById('search') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.focus();
+    }
   }
 }

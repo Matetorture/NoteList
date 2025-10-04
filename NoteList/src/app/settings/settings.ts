@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SettingsService, AppSettings, DEFAULT_SETTINGS, THEME_COLORS } from '../services/settings.service';
 import { AlertService } from '../services/alert.service';
 import { ImportExportService } from '../services/import-export.service';
+import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
 
 @Component({
   selector: 'app-settings',
@@ -13,7 +14,7 @@ import { ImportExportService } from '../services/import-export.service';
   templateUrl: './settings.html',
   styleUrl: './settings.css'
 })
-export class Settings implements OnInit {
+export class Settings implements OnInit, OnDestroy {
   settings: AppSettings = DEFAULT_SETTINGS;
   loading = true;
   saving = false;
@@ -50,7 +51,8 @@ export class Settings implements OnInit {
     private settingsService: SettingsService,
     private router: Router,
     private importExportService: ImportExportService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private keyboardShortcutsService: KeyboardShortcutsService
   ) {}
 
   ngOnInit() {
@@ -63,7 +65,12 @@ export class Settings implements OnInit {
       this.settings.customColors = { ...THEME_COLORS.light };
     }
     
+    this.setupKeyboardShortcuts();
     this.loading = false;
+  }
+
+  ngOnDestroy() {
+    this.keyboardShortcutsService.unregisterAll();
   }
 
   onThemeChange() {
@@ -157,6 +164,14 @@ export class Settings implements OnInit {
       return this.settings.customColors;
     }
     return THEME_COLORS[this.settings.theme as keyof typeof THEME_COLORS] || THEME_COLORS.light;
+  }
+
+  private setupKeyboardShortcuts(): void {
+    this.keyboardShortcutsService.registerShortcut({
+      key: 'Escape',
+      ctrl: false,
+      action: () => this.router.navigate(['/notes'])
+    });
   }
 
   getFontClass(font: string): string {

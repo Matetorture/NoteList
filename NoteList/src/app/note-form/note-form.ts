@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NoteService, Note, Category } from '../services/note.service';
 import { AlertService } from '../services/alert.service';
+import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
 
 @Component({
   selector: 'app-note-form',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   standalone: true,
   templateUrl: './note-form.html',
   styleUrl: './note-form.css'
 })
-export class NoteForm implements OnInit {
+export class NoteForm implements OnInit, OnDestroy {
   note: Note = {
     id: 0,
     title: '',
@@ -35,12 +36,14 @@ export class NoteForm implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private noteService: NoteService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private keyboardShortcuts: KeyboardShortcutsService
   ) {}
 
   async ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.isEditMode = !!id && id > 0;
+    this.setupKeyboardShortcuts();
     
     await this.loadCategories();
     
@@ -202,5 +205,19 @@ export class NoteForm implements OnInit {
     if (fileInput) {
       fileInput.click();
     }
+  }
+
+  ngOnDestroy() {
+    this.keyboardShortcuts.stopListening();
+    this.keyboardShortcuts.clearAllShortcuts();
+  }
+
+  setupKeyboardShortcuts() {
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Escape',
+      action: () => this.goBack()
+    });
+
+    this.keyboardShortcuts.startListening();
   }
 }
