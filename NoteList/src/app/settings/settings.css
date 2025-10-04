@@ -279,6 +279,15 @@
     flex-direction: column;
     gap: 15px;
   }
+  
+  .theme-previews {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+  }
+  
+  .theme-previews.expanded {
+    max-height: 1500px;
+  }
 }
 
 .theme-header {
@@ -323,14 +332,14 @@
   overflow: hidden;
   transition: max-height 0.3s ease, margin-top 0.3s ease, opacity 0.2s ease;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
   opacity: 0;
   visibility: hidden;
 }
 
 .theme-previews.expanded {
-  max-height: 500px;
+  max-height: 1200px;
   margin-top: 15px;
   opacity: 1;
   visibility: visible;

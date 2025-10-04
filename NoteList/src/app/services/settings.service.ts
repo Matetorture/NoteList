@@ -48,7 +48,7 @@ export interface AppSettings {
   | 'Smokum'
   | 'Special Elite'
   | 'Fredericka the Great';
-  theme: 'light' | 'dark' | 'nature' | 'pastel' | 'moon' | 'custom';
+  theme: 'light' | 'dark' | 'nature' | 'pastel' | 'moon' | 'ocean' | 'sunset' | 'forest' | 'purple' | 'cyberpunk' | 'autumn' | 'winter' | 'galaxy' | 'neon' | 'cherry' | 'matrix' | 'desert' | 'arctic' | 'volcano' | 'mint' | 'custom';
   customColors?: {
     primary: string;
     secondary: string;
@@ -153,13 +153,176 @@ export const AVAILABLE_THEMES: ThemeOption[] = [
     }
   },
   {
+    key: 'ocean',
+    name: 'Ocean Theme',
+    colors: {
+      primary: '#0277BD',
+      secondary: '#00ACC1',
+      background: '#E3F2FD',
+      surface: '#BBDEFB',
+      text: '#01579B'
+    }
+  },
+  {
+    key: 'sunset',
+    name: 'Sunset Theme',
+    colors: {
+      primary: '#FF6F00',
+      secondary: '#FF8A65',
+      background: '#FFF3E0',
+      surface: '#FFCC80',
+      text: '#E65100'
+    }
+  },
+  {
+    key: 'forest',
+    name: 'Forest Theme',
+    colors: {
+      primary: '#388E3C',
+      secondary: '#66BB6A',
+      background: '#E8F5E8',
+      surface: '#C8E6C9',
+      text: '#1B5E20'
+    }
+  },
+  {
+    key: 'purple',
+    name: 'Purple Theme',
+    colors: {
+      primary: '#7B1FA2',
+      secondary: '#AB47BC',
+      background: '#F3E5F5',
+      surface: '#E1BEE7',
+      text: '#4A148C'
+    }
+  },
+  {
+    key: 'cyberpunk',
+    name: 'Cyberpunk Theme',
+    colors: {
+      primary: '#00FF41',
+      secondary: '#FF00FF',
+      background: '#0D1117',
+      surface: '#161B22',
+      text: '#C9D1D9'
+    }
+  },
+  {
+    key: 'autumn',
+    name: 'Autumn Theme',
+    colors: {
+      primary: '#FF6B35',
+      secondary: '#F7931E',
+      background: '#FFF8DC',
+      surface: '#FFEAA7',
+      text: '#2D3436'
+    }
+  },
+  {
+    key: 'winter',
+    name: 'Winter Theme',
+    colors: {
+      primary: '#0288D1',
+      secondary: '#29B6F6',
+      background: '#F1F8FF',
+      surface: '#E3F2FD',
+      text: '#01579B'
+    }
+  },
+  {
+    key: 'galaxy',
+    name: 'Galaxy Theme',
+    colors: {
+      primary: '#673AB7',
+      secondary: '#9C27B0',
+      background: '#1A0033',
+      surface: '#2D1B69',
+      text: '#E1BEE7'
+    }
+  },
+  {
+    key: 'neon',
+    name: 'Neon Theme',
+    colors: {
+      primary: '#00E676',
+      secondary: '#FF1744',
+      background: '#0A0A0A',
+      surface: '#1C1C1C',
+      text: '#00E676'
+    }
+  },
+  {
+    key: 'cherry',
+    name: 'Cherry Theme',
+    colors: {
+      primary: '#E91E63',
+      secondary: '#FFC1CC',
+      background: '#FFF0F3',
+      surface: '#FFE4E6',
+      text: '#880E4F'
+    }
+  },
+  {
+    key: 'matrix',
+    name: 'Matrix Theme',
+    colors: {
+      primary: '#00FF00',
+      secondary: '#39FF14',
+      background: '#000000',
+      surface: '#0A0A0A',
+      text: '#00FF00'
+    }
+  },
+  {
+    key: 'desert',
+    name: 'Desert Theme',
+    colors: {
+      primary: '#D2691E',
+      secondary: '#F4A460',
+      background: '#FDF5E6',
+      surface: '#F5DEB3',
+      text: '#8B4513'
+    }
+  },
+  {
+    key: 'arctic',
+    name: 'Arctic Theme',
+    colors: {
+      primary: '#00CED1',
+      secondary: '#B0E0E6',
+      background: '#F0F8FF',
+      surface: '#E0F6FF',
+      text: '#008B8B'
+    }
+  },
+  {
+    key: 'volcano',
+    name: 'Volcano Theme',
+    colors: {
+      primary: '#FF4500',
+      secondary: '#FF6347',
+      background: '#2F1B14',
+      surface: '#4A2C17',
+      text: '#FFE4E1'
+    }
+  },
+  {
+    key: 'mint',
+    name: 'Mint Theme',
+    colors: {
+      primary: '#00FA9A',
+      secondary: '#98FB98',
+      background: '#F0FFF0',
+      surface: '#E6FFE6',
+      text: '#006400'
+    }
+  },
+  {
     key: 'custom',
     name: 'Custom Theme'
-    // colors will be undefined for custom theme
   }
 ];
 
-// Legacy THEME_COLORS for backward compatibility
 export const THEME_COLORS = AVAILABLE_THEMES.reduce((acc, theme) => {
   if (theme.colors) {
     acc[theme.key] = theme.colors;
