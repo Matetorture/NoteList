@@ -99,12 +99,32 @@
 }
 
 .color-input {
-  width: 50px;
+  width: 42px;
   height: 42px;
-  border: 1px solid rgba(0,0,0,0.2);
-  border-radius: 6px;
+  border: 5px solid rgba(0,0,0,0.2);
+  border-radius: 50%;
   cursor: pointer;
+  padding: 0px;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.color-input::-webkit-color-swatch-wrapper {
   padding: 0;
+  border: none;
+  border-radius: 50%;
+}
+
+.color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+.color-input::-moz-color-swatch {
+  border: none;
+  border-radius: 50%;
 }
 
 .random-color-btn {
