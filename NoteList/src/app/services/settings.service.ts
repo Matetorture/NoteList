@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 
+export interface FontOption {
+  name: string;
+  fontFamily: string;
+  cssClass: string;
+}
+
 export interface AppSettings {
   showActiveFilters: boolean;
   font: 
@@ -26,6 +32,22 @@ export interface AppSettings {
   };
   keyboardShortcuts: boolean;
 }
+
+export const AVAILABLE_FONTS: FontOption[] = [
+  { name: 'Lato', fontFamily: "'Lato', sans-serif", cssClass: 'font-option-lato' },
+  { name: 'Open Sans', fontFamily: "'Open Sans', sans-serif", cssClass: 'font-option-open-sans' },
+  { name: 'Roboto', fontFamily: "'Roboto', sans-serif", cssClass: 'font-option-roboto' },
+  { name: 'SUSE Mono', fontFamily: "'SUSE Mono', monospace", cssClass: 'font-option-suse-mono' },
+  { name: 'Playfair Display', fontFamily: "'Playfair Display', serif", cssClass: 'font-option-playfair-display' },
+  { name: 'Montserrat', fontFamily: "'Montserrat', sans-serif", cssClass: 'font-option-montserrat' },
+  { name: 'Merriweather', fontFamily: "'Merriweather', serif", cssClass: 'font-option-merriweather' },
+  { name: 'Fira Code', fontFamily: "'Fira Code', monospace", cssClass: 'font-option-fira-code' },
+  { name: 'Pacifico', fontFamily: "'Pacifico', cursive", cssClass: 'font-option-pacifico' },
+  { name: 'Bebas Neue', fontFamily: "'Bebas Neue', sans-serif", cssClass: 'font-option-bebas-neue' },
+  { name: 'Crimson Pro', fontFamily: "'Crimson Pro', serif", cssClass: 'font-option-crimson-pro' },
+  { name: 'Indie Flower', fontFamily: "'Indie Flower', cursive", cssClass: 'font-option-indie-flower' },
+  { name: 'Ubuntu', fontFamily: "'Ubuntu', sans-serif", cssClass: 'font-option-ubuntu' }
+];
 
 export const DEFAULT_SETTINGS: AppSettings = {
   showActiveFilters: true,
@@ -149,21 +171,8 @@ export class SettingsService {
   }
 
   private getFontFamily(): string {
-    switch (this.settings.font) {
-        case 'Open Sans': return '"Open Sans", sans-serif';
-        case 'Roboto': return '"Roboto", sans-serif';
-        case 'SUSE Mono': return '"SUSE Mono", monospace';
-        case 'Playfair Display': return '"Playfair Display", serif';
-        case 'Montserrat': return '"Montserrat", sans-serif';
-        case 'Merriweather': return '"Merriweather", serif';
-        case 'Fira Code': return '"Fira Code", monospace';
-        case 'Pacifico': return '"Pacifico", cursive';
-        case 'Bebas Neue': return '"Bebas Neue", sans-serif';
-        case 'Crimson Pro': return '"Crimson Pro", serif';
-        case 'Indie Flower': return '"Indie Flower", cursive';
-        case 'Ubuntu': return '"Ubuntu", sans-serif';  
-        default: return '"Lato", sans-serif';
-    }
+    const fontOption = this.getFontOption(this.settings.font);
+    return fontOption ? fontOption.fontFamily : '"Lato", sans-serif';
   }
 
   private updateSvgFilter(textColor: string): void {
@@ -172,6 +181,14 @@ export class SettingsService {
     const svgFilter = `brightness(0) saturate(100%) invert(${invertValue}%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1) contrast(100%)`;
     document.documentElement.style.setProperty('--svg-filter', svgFilter);
     console.log(`SVG filter calculated: text brightness ${brightness}, invert ${invertValue}% (matching text color)`);
+  }
+
+  getAvailableFonts(): FontOption[] {
+    return AVAILABLE_FONTS;
+  }
+
+  getFontOption(fontName: string): FontOption | undefined {
+    return AVAILABLE_FONTS.find(font => font.name === fontName);
   }
 
   private getColorBrightness(color: string): number {

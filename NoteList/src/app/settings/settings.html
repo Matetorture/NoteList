@@ -34,7 +34,7 @@
       <div class="setting-item">
         <label for="font">Font</label>
         <select id="font" [(ngModel)]="settings.font" (change)="onFontChange()" class="setting-select">
-          <option *ngFor="let font of fonts" [value]="font" [class]="getFontClass(font)">{{ font }}</option>
+          <option *ngFor="let font of fonts" [value]="font.name" [class]="getFontClass(font)">{{ font.name }}</option>
         </select>
       </div>
       

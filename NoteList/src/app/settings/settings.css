@@ -129,19 +129,6 @@
   box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.25);
 }
 
-.font-option-lato { font-family: 'Lato', sans-serif; }
-.font-option-open-sans { font-family: 'Open Sans', sans-serif; }
-.font-option-roboto { font-family: 'Roboto', sans-serif; }
-.font-option-suse-mono { font-family: 'SUSE Mono', monospace; }
-.font-option-playfair-display { font-family: 'Playfair Display', serif; }
-.font-option-montserrat { font-family: 'Montserrat', sans-serif; }
-.font-option-merriweather { font-family: 'Merriweather', serif; }
-.font-option-fira-code { font-family: 'Fira Code', monospace; }
-.font-option-pacifico { font-family: 'Pacifico', cursive; }
-.font-option-bebas-neue { font-family: 'Bebas Neue', sans-serif; }
-.font-option-crimson-pro { font-family: 'Crimson Pro', serif; }
-.font-option-indie-flower { font-family: 'Indie Flower', cursive; }
-.font-option-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 #font option {
   padding: 8px 12px;
