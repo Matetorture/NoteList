@@ -1,6 +1,6 @@
 # NoteList - Note Management Application
 
-![Application icon](icon.png)
+<img src="README_img/icon.png" alt="Application icon" width="100">
 
 ## About
 
