@@ -182,9 +182,34 @@ export class CategoryForm implements OnInit {
 
   getRandomColor() {
     const colors = [
-      '#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#F44336',
-      '#607D8B', '#00BCD4', '#FFEB3B', '#8BC34A', '#E91E63',
-      '#795548', '#FF5722', '#009688', '#3F51B5', '#FF6F00'
+      '#FF9800', // Orange
+      '#9C27B0', // Purple
+      '#F44336', // Red
+      '#00BCD4', // Cyan
+      '#FFEB3B', // Yellow
+      '#8BC34A', // Light Green
+      '#E91E63', // Pink
+      '#FF5722', // Deep Orange
+      '#3F51B5', // Indigo
+
+      '#4CAF50', // Green
+      '#2196F3', // Blue
+      '#673AB7', // Deep Purple
+      '#CDDC39', // Lime
+      '#009688', // Teal
+      '#FFC107', // Amber
+      '#C62828', // Dark Red
+      '#283593', // Dark Indigo
+      '#00695C', // Dark Teal
+      '#1E88E5', // Light Blue
+      '#D81B60', // Dark Pink
+      '#FDD835', // Bright Yellow
+      '#2E7D32', // Dark Green
+      '#FF7043', // Light Orange
+      '#90CAF9', // Soft Blue
+      '#BA68C8', // Soft Purple
+      '#AED581', // Soft Green
+      '#FFCDD2', // Soft Red
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
