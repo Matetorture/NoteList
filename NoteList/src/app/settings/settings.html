@@ -84,8 +84,15 @@
       </div>
       
       <div class="setting-item">
-        <button type="button" (click)="importData()" class="action-btn">Import Data</button>
-        <button type="button" (click)="exportData()" class="action-btn">Export Data</button>
+        <div class="import-export-buttons">
+          <button type="button" (click)="exportData()" class="action-btn export-btn">
+            Export Data
+          </button>
+          <button type="button" (click)="importData()" class="action-btn import-btn">
+            Import Data
+          </button>
+        </div>
+        <p class="setting-description">Export notes and categories to JSON file (downloads to Downloads folder), or import from JSON</p>
       </div>
     </div>
 

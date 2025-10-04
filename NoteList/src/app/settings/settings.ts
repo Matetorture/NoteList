@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SettingsService, AppSettings, DEFAULT_SETTINGS, THEME_COLORS } from '../services/settings.service';
 import { AlertService } from '../services/alert.service';
+import { ImportExportService } from '../services/import-export.service';
 
 @Component({
   selector: 'app-settings',
@@ -48,6 +49,7 @@ export class Settings implements OnInit {
   constructor(
     private settingsService: SettingsService,
     private router: Router,
+    private importExportService: ImportExportService,
     private alertService: AlertService
   ) {}
 
@@ -129,12 +131,25 @@ export class Settings implements OnInit {
     this.router.navigate(['/notes']);
   }
 
-  importData() {
-    this.settingsService.importData();
+  async importData() {
+    await this.importExportService.importData();
   }
 
-  exportData() {
-    this.settingsService.exportData();
+  async exportData() {
+    try {
+      // Show preview before export
+      const preview = await this.importExportService.getExportPreview();
+      this.alertService.confirm(
+        'Export Data',
+        `Ready to export:\n• ${preview.notesCount} notes\n• ${preview.categoriesCount} categories\n\nContinue with export?`,
+        async () => {
+          // User confirmed - proceed with export
+          await this.importExportService.exportData();
+        }
+      );
+    } catch (error) {
+      console.error('Export failed:', error);
+    }
   }
 
   getCurrentThemeColors() {

@@ -55,7 +55,7 @@ export class AlertService {
     this.addAlert(alert);
   }
 
-  info(title: string, message: string): void {
+  info(title: string, message: string): string {
     const alert: AlertData = {
       id: this.generateId(),
       type: 'info',
@@ -63,6 +63,7 @@ export class AlertService {
       message
     };
     this.addAlert(alert);
+    return alert.id;
   }
 
   confirm(title: string, message: string, onConfirm?: () => void, onCancel?: () => void): void {

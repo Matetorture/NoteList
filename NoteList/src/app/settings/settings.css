@@ -91,7 +91,7 @@
 }
 
 .setting-description {
-  margin: 5px 0 0 28px;
+  margin: 5px 0 0 8px;
   font-size: 0.9em;
   color: var(--color-text, #666);
   opacity: 0.8;
@@ -194,6 +194,43 @@
 .action-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.import-export-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.export-btn {
+  background: var(--color-primary, #1976d2);
+  color: white;
+}
+
+.export-btn:hover {
+  background: var(--color-primary, #1565c0);
+  filter: brightness(0.9);
+}
+
+.import-btn {
+  background: var(--color-primary, #1976d2);
+  color: white;
+}
+
+.import-btn:hover {
+  background: var(--color-primary, #1565c0);
+  filter: brightness(0.9);
+}
+
+@media (max-width: 600px) {
+  .import-export-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .action-btn {
+    margin-right: 0;
+  }
 }
 
 .settings-actions {
