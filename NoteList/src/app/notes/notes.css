@@ -384,6 +384,7 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   display: flex;
   min-height: 120px;
+  position: relative;
 }
 
 .note-item:hover {
@@ -508,4 +509,68 @@
     flex-direction: column;
     align-items: stretch;
   }
+}
+
+.note-position-controls {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 40px;
+  height: calc(100% - 8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.note-position-controls .position-btn {
+  pointer-events: auto;
+}
+
+.note-item:hover .note-position-controls {
+  opacity: 1;
+}
+
+.position-btn {
+  background: var(--color-background, transparent);
+  color: var(--color-text, transparent);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.position-btn:hover {
+  background: var(--color-primary-light, rgba(25, 118, 210, 0.1));
+  color: var(--color-text, #333);
+  transform: scale(1.1);
+}
+
+.position-btn:active {
+  transform: scale(0.95);
+}
+
+.position-btn:disabled {
+  background: var(--color-background, transparent);
+  color: #4e4e4e;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.position-btn:disabled:hover {
+  background: var(--color-background, transparent);
+  color: #4e4e4e;
+  transform: none;
 }

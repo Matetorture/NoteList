@@ -82,7 +82,7 @@
   </div>
   
   <div *ngIf="!loading && notes.length > 0" class="notes-list">
-    <div *ngFor="let note of notes" class="note-item" [routerLink]="['/note', note.id]">
+    <div *ngFor="let note of notes; let i = index" class="note-item" [routerLink]="['/note', note.id]">
       <div class="note-image" *ngIf="note.img">
         <img [src]="note.img" [alt]="note.title" loading="lazy" />
       </div>
@@ -98,6 +98,22 @@
           </span>
         </div>
         <p *ngIf="shouldShowCreationDates()" class="note-date">{{ formatDate(note.created_at) }}</p>
+      </div>
+      <div class="note-position-controls">
+        <button 
+          class="position-btn" 
+          title="Move up"
+          [disabled]="i === 0"
+          (click)="moveNoteUp(i, $event)">
+          ▲
+        </button>
+        <button 
+          class="position-btn" 
+          title="Move down"
+          [disabled]="i === notes.length - 1"
+          (click)="moveNoteDown(i, $event)">
+          ▼
+        </button>
       </div>
     </div>
   </div>

@@ -203,4 +203,38 @@ export class Notes implements OnInit, OnDestroy {
       searchInput.focus();
     }
   }
+
+  async moveNoteUp(index: number, event: Event) {
+    event.stopPropagation();
+    if (index > 0) {
+      const currentNote = this.notes[index];
+      const previousNote = this.notes[index - 1];
+      
+      const tempId = currentNote.id;
+      currentNote.id = previousNote.id;
+      previousNote.id = tempId;
+      
+      await this.noteService.saveNote(currentNote);
+      await this.noteService.saveNote(previousNote);
+      
+      await this.loadData();
+    }
+  }
+
+  async moveNoteDown(index: number, event: Event) {
+    event.stopPropagation();
+    if (index < this.notes.length - 1) {
+      const currentNote = this.notes[index];
+      const nextNote = this.notes[index + 1];
+      
+      const tempId = currentNote.id;
+      currentNote.id = nextNote.id;
+      nextNote.id = tempId;
+      
+      await this.noteService.saveNote(currentNote);
+      await this.noteService.saveNote(nextNote);
+      
+      await this.loadData();
+    }
+  }
 }
