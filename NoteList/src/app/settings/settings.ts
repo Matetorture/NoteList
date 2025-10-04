@@ -43,7 +43,6 @@ export class Settings implements OnInit, OnDestroy {
     this.showCustomColors = this.settings.theme === 'custom';
     this.previousTheme = this.settings.theme === 'custom' ? 'dark' : this.settings.theme;
     
-    // Initialize custom colors if needed
     if (this.settings.theme === 'custom' && !this.settings.customColors) {
       this.settings.customColors = { ...THEME_COLORS['dark'] };
     }
@@ -61,23 +60,19 @@ export class Settings implements OnInit, OnDestroy {
     this.showCustomColors = this.settings.theme === 'custom';
     
     if (this.settings.theme !== 'custom') {
-      // Switching away from custom - store this theme as previous
       this.previousTheme = this.settings.theme;
       this.settings.customColors = undefined;
     } else if (!wasCustom) {
-      // Switching TO custom - use colors from the previous theme
       const sourceTheme = this.previousTheme || 'dark';
       this.settings.customColors = { 
         ...THEME_COLORS[sourceTheme as keyof typeof THEME_COLORS] 
       };
     }
     
-    // Apply theme immediately
     this.saveSettings();
   }
 
   onFontChange() {
-    // Apply font immediately
     this.saveSettings();
   }
 
@@ -127,13 +122,11 @@ export class Settings implements OnInit, OnDestroy {
 
   async exportData() {
     try {
-      // Show preview before export
       const preview = await this.importExportService.getExportPreview();
       this.alertService.confirm(
         'Export Data',
         `Ready to export:\n• ${preview.notesCount} notes\n• ${preview.categoriesCount} categories\n\nContinue with export?`,
         async () => {
-          // User confirmed - proceed with export
           await this.importExportService.exportData();
         }
       );
@@ -162,13 +155,13 @@ export class Settings implements OnInit, OnDestroy {
   }
 
   private generateFontStyles(): void {
-    // Remove existing font styles
+
     const existingStyle = document.getElementById('dynamic-font-styles');
     if (existingStyle) {
       existingStyle.remove();
     }
 
-    // Generate new styles
+
     const style = document.createElement('style');
     style.id = 'dynamic-font-styles';
     style.type = 'text/css';

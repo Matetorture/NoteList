@@ -178,13 +178,11 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
 
 
   private processImageFile(file: File) {
-    // Validate file type
     if (!file.type.startsWith('image/')) {
       this.alertService.error('Invalid File', 'Please select a valid image file!');
       return;
     }
     
-    // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       this.alertService.error('File Too Large', 'Image file size must be less than 5MB!');
       return;

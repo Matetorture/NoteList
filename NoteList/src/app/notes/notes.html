@@ -13,7 +13,6 @@
     </div>
   </div>
   
-  <!-- Active Filters Indicator -->
   <div *ngIf="shouldShowActiveFilters()" class="active-filters">
     <span class="filters-label">Active filters:</span>
     <span *ngIf="searchTerm" class="filter-tag search-tag">
@@ -27,9 +26,7 @@
     </span>
   </div>
 
-  <!-- Search and Filter Container -->
   <div class="search-filter-container">
-    <!-- Search Notes -->
     <div class="search-notes">
       <div class="search-input-container">
         <input 
@@ -53,7 +50,6 @@
       </button>
     </div>
 
-    <!-- Category Filter Panel -->
     <div class="category-filter" [class.expanded]="showCategoryFilter && allCategories.length > 0">
       <h3>Filter by Categories:</h3>
       <div class="category-buttons">

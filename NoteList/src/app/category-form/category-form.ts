@@ -69,7 +69,6 @@ export class CategoryForm implements OnInit, OnDestroy {
       return;
     }
 
-    // Check if category already exists
     if (this.categories.some(c => c.name.toLowerCase() === this.newCategoryName.trim().toLowerCase())) {
       this.alertService.error('Duplicate Category', 'Category with this name already exists!');
       return;
@@ -113,7 +112,6 @@ export class CategoryForm implements OnInit, OnDestroy {
 
     if (!this.editingCategory) return;
 
-    // Check if new name conflicts with existing categories (excluding current)
     if (this.editName.toLowerCase() !== this.editingCategory.name.toLowerCase()) {
       if (this.categories.some(c => c.name.toLowerCase() === this.editName.trim().toLowerCase())) {
         this.alertService.error('Duplicate Category', 'Category with this name already exists!');
@@ -127,7 +125,6 @@ export class CategoryForm implements OnInit, OnDestroy {
     };
 
     try {
-      // If name changed, update it in all notes first, then delete old and create new
       if (this.editingCategory.name !== updatedCategory.name) {
         const updatedNotesCount = await this.noteService.updateCategoryInNotes(this.editingCategory.name, updatedCategory.name);
         await this.noteService.deleteCategory(this.editingCategory.name);
@@ -142,7 +139,6 @@ export class CategoryForm implements OnInit, OnDestroy {
         this.onSearchCategories();
         this.alertService.success('Success', message);
       } else {
-        // Only color changed
         await this.noteService.saveCategory(updatedCategory);
         await this.loadCategories();
         this.cancelEditing();
@@ -185,34 +181,33 @@ export class CategoryForm implements OnInit, OnDestroy {
 
   getRandomColor() {
     const colors = [
-      '#FF9800', // Orange
-      '#9C27B0', // Purple
-      '#F44336', // Red
-      '#00BCD4', // Cyan
-      '#FFEB3B', // Yellow
-      '#8BC34A', // Light Green
-      '#E91E63', // Pink
-      '#FF5722', // Deep Orange
-      '#3F51B5', // Indigo
-
-      '#4CAF50', // Green
-      '#2196F3', // Blue
-      '#673AB7', // Deep Purple
-      '#CDDC39', // Lime
-      '#009688', // Teal
-      '#FFC107', // Amber
-      '#C62828', // Dark Red
-      '#283593', // Dark Indigo
-      '#00695C', // Dark Teal
-      '#1E88E5', // Light Blue
-      '#D81B60', // Dark Pink
-      '#FDD835', // Bright Yellow
-      '#2E7D32', // Dark Green
-      '#FF7043', // Light Orange
-      '#90CAF9', // Soft Blue
-      '#BA68C8', // Soft Purple
-      '#AED581', // Soft Green
-      '#FFCDD2', // Soft Red
+      '#FF9800',
+      '#9C27B0',
+      '#F44336',
+      '#00BCD4',
+      '#FFEB3B',
+      '#8BC34A',
+      '#E91E63',
+      '#FF5722',
+      '#3F51B5',
+      '#4CAF50',
+      '#2196F3',
+      '#673AB7',
+      '#CDDC39',
+      '#009688',
+      '#FFC107',
+      '#C62828',
+      '#283593',
+      '#00695C',
+      '#1E88E5',
+      '#D81B60',
+      '#FDD835',
+      '#2E7D32',
+      '#FF7043',
+      '#90CAF9',
+      '#BA68C8',
+      '#AED581',
+      '#FFCDD2',
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }

@@ -39,7 +39,6 @@ export class Notes implements OnInit, OnDestroy {
     this.refreshSettings();
     this.setupKeyboardShortcuts();
     
-    // Restore filter state
     const filterState = this.filterService.getFilterState();
     this.searchTerm = filterState.searchTerm;
     this.selectedCategories = [...filterState.selectedCategories];
@@ -120,7 +119,6 @@ export class Notes implements OnInit, OnDestroy {
   applyFilters() {
     let filteredNotes = [...this.allNotes];
 
-    // Apply search filter
     if (this.searchTerm.trim()) {
       const searchLower = this.searchTerm.toLowerCase().trim();
       filteredNotes = filteredNotes.filter(note =>
