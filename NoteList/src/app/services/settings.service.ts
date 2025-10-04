@@ -6,6 +6,18 @@ export interface FontOption {
   cssClass: string;
 }
 
+export interface ThemeOption {
+  key: string;
+  name: string;
+  colors?: {
+    primary: string;
+    secondary: string;
+    background: string;
+    surface: string;
+    text: string;
+  };
+}
+
 export interface AppSettings {
   showActiveFilters: boolean;
   font: 
@@ -84,43 +96,76 @@ export const DEFAULT_SETTINGS: AppSettings = {
   keyboardShortcuts: true
 };
 
-export const THEME_COLORS = {
-  light: {
-    primary: '#1976D2',
-    secondary: '#FFC107',
-    background: '#FFFFFF',
-    surface: '#F5F5F5',
-    text: '#212121'
+export const AVAILABLE_THEMES: ThemeOption[] = [
+  {
+    key: 'light',
+    name: 'Light Theme',
+    colors: {
+      primary: '#1976D2',
+      secondary: '#FFC107',
+      background: '#FFFFFF',
+      surface: '#F5F5F5',
+      text: '#212121'
+    }
   },
-  dark: {
-    primary: '#90CAF9',
-    secondary: '#ffc71d',
-    background: '#121212',
-    surface: '#1E1E1E',
-    text: '#E0E0E0'
+  {
+    key: 'dark',
+    name: 'Dark Theme',
+    colors: {
+      primary: '#90CAF9',
+      secondary: '#ffc71d',
+      background: '#121212',
+      surface: '#1E1E1E',
+      text: '#E0E0E0'
+    }
   },
-  nature: {
-    primary: '#2E7D32',
-    secondary: '#FFB300',
-    background: '#F1F8E9',
-    surface: '#DCEDC8',
-    text: '#33691E'
+  {
+    key: 'nature',
+    name: 'Nature Theme',
+    colors: {
+      primary: '#2E7D32',
+      secondary: '#FFB300',
+      background: '#F1F8E9',
+      surface: '#DCEDC8',
+      text: '#33691E'
+    }
   },
-  pastel: {
-    primary: '#F48FB1',
-    secondary: '#81D4FA',
-    background: '#FFF8E1',
-    surface: '#FFE0B2',
-    text: '#6D4C41'
+  {
+    key: 'pastel',
+    name: 'Pastel Theme',
+    colors: {
+      primary: '#F48FB1',
+      secondary: '#81D4FA',
+      background: '#FFF8E1',
+      surface: '#FFE0B2',
+      text: '#6D4C41'
+    }
   },
-  moon: {
-    primary: '#FF00FF',
-    secondary: '#db8adbff',
-    background: '#0D0D0D',
-    surface: '#1A1A1A',
-    text: '#E6E6E6'
+  {
+    key: 'moon',
+    name: 'Moon Theme',
+    colors: {
+      primary: '#FF00FF',
+      secondary: '#db8adb',
+      background: '#0D0D0D',
+      surface: '#1A1A1A',
+      text: '#E6E6E6'
+    }
+  },
+  {
+    key: 'custom',
+    name: 'Custom Theme'
+    // colors will be undefined for custom theme
   }
-};
+];
+
+// Legacy THEME_COLORS for backward compatibility
+export const THEME_COLORS = AVAILABLE_THEMES.reduce((acc, theme) => {
+  if (theme.colors) {
+    acc[theme.key] = theme.colors;
+  }
+  return acc;
+}, {} as Record<string, any>);
 
 @Injectable({
   providedIn: 'root'
@@ -181,10 +226,10 @@ export class SettingsService {
     
     const colors = this.settings.theme === 'custom' && this.settings.customColors 
       ? this.settings.customColors 
-      : THEME_COLORS[this.settings.theme as keyof typeof THEME_COLORS] || THEME_COLORS.light;
+      : THEME_COLORS[this.settings.theme] || THEME_COLORS['light'];
     
     Object.entries(colors).forEach(([key, value]) => {
-      document.documentElement.style.setProperty(`--color-${key}`, value);
+      document.documentElement.style.setProperty(`--color-${key}`, value as string);
     });
     
     document.body.style.backgroundColor = colors.background;
@@ -217,6 +262,22 @@ export class SettingsService {
 
   getFontOption(fontName: string): FontOption | undefined {
     return AVAILABLE_FONTS.find(font => font.name === fontName);
+  }
+
+  getAvailableThemes(): ThemeOption[] {
+    return AVAILABLE_THEMES;
+  }
+
+  getThemeOption(themeKey: string): ThemeOption | undefined {
+    return AVAILABLE_THEMES.find(theme => theme.key === themeKey);
+  }
+
+  getThemeColor(themeKey: string, colorType: string): string {
+    const theme = this.getThemeOption(themeKey);
+    if (theme && theme.colors) {
+      return theme.colors[colorType as keyof typeof theme.colors] || '#000000';
+    }
+    return '#000000';
   }
 
   private getColorBrightness(color: string): number {

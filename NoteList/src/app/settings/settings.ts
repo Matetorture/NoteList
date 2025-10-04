@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SettingsService, AppSettings, DEFAULT_SETTINGS, THEME_COLORS, FontOption } from '../services/settings.service';
+import { SettingsService, AppSettings, DEFAULT_SETTINGS, THEME_COLORS, FontOption, ThemeOption } from '../services/settings.service';
 import { AlertService } from '../services/alert.service';
 import { ImportExportService } from '../services/import-export.service';
 import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
@@ -21,14 +21,7 @@ export class Settings implements OnInit, OnDestroy {
   previousTheme: string = 'light'; // Track previous theme
   
   fonts: FontOption[] = [];
-  themes = [
-    { key: 'light', name: 'Light Theme' },
-    { key: 'dark', name: 'Dark Theme' },
-    { key: 'nature', name: 'Nature Theme' },
-    { key: 'pastel', name: 'Pastel Theme' },
-    { key: 'moon', name: 'Moon Theme' },
-    { key: 'custom', name: 'Custom Theme' }
-  ];
+  themes: ThemeOption[] = [];
   
   themeColors = THEME_COLORS;
   showCustomColors = false;
@@ -45,13 +38,14 @@ export class Settings implements OnInit, OnDestroy {
   ngOnInit() {
     this.settings = this.settingsService.loadSettings();
     this.fonts = this.settingsService.getAvailableFonts();
+    this.themes = this.settingsService.getAvailableThemes();
     this.generateFontStyles();
     this.showCustomColors = this.settings.theme === 'custom';
     this.previousTheme = this.settings.theme === 'custom' ? 'light' : this.settings.theme;
     
     // Initialize custom colors if needed
     if (this.settings.theme === 'custom' && !this.settings.customColors) {
-      this.settings.customColors = { ...THEME_COLORS.light };
+      this.settings.customColors = { ...THEME_COLORS['light'] };
     }
     
     this.setupKeyboardShortcuts();
@@ -152,7 +146,7 @@ export class Settings implements OnInit, OnDestroy {
     if (this.settings.theme === 'custom' && this.settings.customColors) {
       return this.settings.customColors;
     }
-    return THEME_COLORS[this.settings.theme as keyof typeof THEME_COLORS] || THEME_COLORS.light;
+    return THEME_COLORS[this.settings.theme] || THEME_COLORS['light'];
   }
 
   private setupKeyboardShortcuts(): void {
@@ -188,11 +182,7 @@ export class Settings implements OnInit, OnDestroy {
   }
 
   getThemeColor(themeKey: string, colorType: string): string {
-    const theme = this.themeColors[themeKey as keyof typeof THEME_COLORS];
-    if (theme) {
-      return theme[colorType as keyof typeof theme] || '#000000';
-    }
-    return '#000000';
+    return this.settingsService.getThemeColor(themeKey, colorType);
   }
 
   selectTheme(themeKey: string): void {
