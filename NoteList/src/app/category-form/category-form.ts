@@ -124,16 +124,28 @@ export class CategoryForm implements OnInit {
     };
 
     try {
-      // If name changed, delete old and create new
+      // If name changed, update it in all notes first, then delete old and create new
       if (this.editingCategory.name !== updatedCategory.name) {
+        const updatedNotesCount = await this.noteService.updateCategoryInNotes(this.editingCategory.name, updatedCategory.name);
         await this.noteService.deleteCategory(this.editingCategory.name);
+        
+        const message = updatedNotesCount > 0 
+          ? `Category updated successfully! Updated ${updatedNotesCount} note${updatedNotesCount === 1 ? '' : 's'}.`
+          : 'Category updated successfully!';
+        
+        await this.noteService.saveCategory(updatedCategory);
+        await this.loadCategories();
+        this.cancelEditing();
+        this.onSearchCategories();
+        this.alertService.success('Success', message);
+      } else {
+        // Only color changed
+        await this.noteService.saveCategory(updatedCategory);
+        await this.loadCategories();
+        this.cancelEditing();
+        this.onSearchCategories();
+        this.alertService.success('Success', 'Category updated successfully!');
       }
-      
-      await this.noteService.saveCategory(updatedCategory);
-      await this.loadCategories();
-      this.cancelEditing();
-      this.onSearchCategories();
-      this.alertService.success('Success', 'Category updated successfully!');
     } catch (error) {
       console.error('Error updating category:', error);
       this.alertService.error('Error', 'Error updating category!');
@@ -146,10 +158,16 @@ export class CategoryForm implements OnInit {
       `Are you sure you want to delete category "${categoryName}"?\n\nThis will remove the category from all notes that use it.`,
       async () => {
         try {
+          const removedNotesCount = await this.noteService.removeCategoryFromNotes(categoryName);
           await this.noteService.deleteCategory(categoryName);
           await this.loadCategories();
           this.onSearchCategories();
-          this.alertService.success('Success', 'Category deleted successfully!');
+          
+          const message = removedNotesCount > 0 
+            ? `Category deleted successfully! Removed from ${removedNotesCount} note${removedNotesCount === 1 ? '' : 's'}.`
+            : 'Category deleted successfully!';
+          
+          this.alertService.success('Success', message);
         } catch (error) {
           console.error('Error deleting category:', error);
           this.alertService.error('Error', 'Error deleting category!');

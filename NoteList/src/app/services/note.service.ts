@@ -110,4 +110,45 @@ export class NoteService {
       throw error;
     }
   }
+
+  async updateCategoryInNotes(oldCategoryName: string, newCategoryName: string): Promise<number> {
+    try {
+      const notes = await this.getNotes();
+      const updatedNotes = notes.filter(note => 
+        note.categories.includes(oldCategoryName)
+      );
+
+      for (const note of updatedNotes) {
+        const categoryIndex = note.categories.indexOf(oldCategoryName);
+        if (categoryIndex > -1) {
+          note.categories[categoryIndex] = newCategoryName;
+          await this.saveNote(note);
+        }
+      }
+
+      return updatedNotes.length;
+    } catch (error) {
+      console.error('Error updating category in notes:', error);
+      throw error;
+    }
+  }
+
+  async removeCategoryFromNotes(categoryName: string): Promise<number> {
+    try {
+      const notes = await this.getNotes();
+      const updatedNotes = notes.filter(note => 
+        note.categories.includes(categoryName)
+      );
+
+      for (const note of updatedNotes) {
+        note.categories = note.categories.filter(cat => cat !== categoryName);
+        await this.saveNote(note);
+      }
+
+      return updatedNotes.length;
+    } catch (error) {
+      console.error('Error removing category from notes:', error);
+      throw error;
+    }
+  }
 }
