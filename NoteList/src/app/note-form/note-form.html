@@ -2,7 +2,7 @@
   <div class="header">
     <h1>{{ isEditMode ? 'Edit Note' : 'Create New Note' }}</h1>
     <div class="header-actions">
-      <button type="button" [routerLink]="['/notes']" class="cancel-btn">
+      <button type="button" (click)="goBack()" class="cancel-btn">
         Back
       </button>
     </div>
@@ -147,7 +147,7 @@
         {{ saving ? 'Saving...' : 'Save Note' }}
       </button>
       
-      <button type="button" [routerLink]="['/notes']" class="cancel-btn">
+      <button type="button" (click)="goBack()" class="cancel-btn">
         Cancel
       </button>
       

@@ -144,6 +144,14 @@ export class NoteForm implements OnInit {
     );
   }
 
+  goBack() {
+    if (this.isEditMode && this.note.id > 0) {
+      this.router.navigate(['/note', this.note.id]);
+    } else {
+      this.router.navigate(['/notes']);
+    }
+  }
+
   onImageFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0];
