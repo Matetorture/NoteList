@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service
   templateUrl: './note-form.html',
   styleUrl: './note-form.css'
 })
-export class NoteForm implements OnInit, OnDestroy {
+export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
   note: Note = {
     id: 0,
     title: '',
@@ -60,6 +60,17 @@ export class NoteForm implements OnInit, OnDestroy {
     }
     
     this.loading = false;
+  }
+
+  ngAfterViewInit() {
+    if (!this.isEditMode) {
+      setTimeout(() => {
+        const titleInput = document.getElementById('title') as HTMLInputElement;
+        if (titleInput) {
+          titleInput.focus();
+        }
+      }, 100);
+    }
   }
 
   async loadCategories() {
