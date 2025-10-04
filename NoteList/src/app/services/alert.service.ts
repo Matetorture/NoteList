@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 export interface AlertData {
   id: string;
-  type: 'success' | 'error' | 'warning' | 'info' | 'confirm';
+  type: 'success' | 'error' | 'info' | 'confirm';
   title: string;
   message: string;
   onConfirm?: () => void;
@@ -39,16 +39,6 @@ export class AlertService {
     const alert: AlertData = {
       id: this.generateId(),
       type: 'error',
-      title,
-      message
-    };
-    this.addAlert(alert);
-  }
-
-  warning(title: string, message: string): void {
-    const alert: AlertData = {
-      id: this.generateId(),
-      type: 'warning',
       title,
       message
     };

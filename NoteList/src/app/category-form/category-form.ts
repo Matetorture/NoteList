@@ -62,7 +62,7 @@ export class CategoryForm implements OnInit {
 
   async addCategory() {
     if (!this.newCategoryName.trim()) {
-      this.alertService.warning('Validation Error', 'Category name is required!');
+      this.alertService.error('Validation Error', 'Category name is required!');
       return;
     }
 
@@ -104,7 +104,7 @@ export class CategoryForm implements OnInit {
 
   async saveEdit() {
     if (!this.editName.trim()) {
-      this.alertService.warning('Validation Error', 'Category name is required!');
+      this.alertService.error('Validation Error', 'Category name is required!');
       return;
     }
 

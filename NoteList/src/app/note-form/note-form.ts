@@ -104,7 +104,7 @@ export class NoteForm implements OnInit {
 
   async saveNote() {
     if (!this.note.title.trim()) {
-      this.alertService.warning('Validation Error', 'Title is required!');
+      this.alertService.error('Validation Error', 'Title is required!');
       return;
     }
 

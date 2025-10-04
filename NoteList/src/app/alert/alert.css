@@ -148,14 +148,6 @@
   color: #dc3545;
 }
 
-.alert-warning .alert-icon {
-  color: #ffc107;
-}
-
-.alert-warning .alert-title {
-  color: #856404;
-}
-
 .alert-info .alert-icon,
 .alert-confirm .alert-icon {
   color: var(--color-primary, #007acc);
