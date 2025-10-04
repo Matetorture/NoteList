@@ -12,16 +12,30 @@ export interface AppSettings {
   | 'Lato' 
   | 'Open Sans' 
   | 'Roboto' 
-  | 'SUSE Mono' 
-  | 'Playfair Display'
-  | 'Montserrat'
-  | 'Merriweather'
-  | 'Fira Code'
-  | 'Pacifico'
+  | 'Ubuntu'
   | 'Bebas Neue'
+  | 'Oswald'
   | 'Crimson Pro'
+  | 'Playfair Display'
+  | 'Libre Baskerville'
+  | 'Roboto Slab'
+  | 'Zilla Slab'
+  | 'Source Code Pro'
+  | 'Fira Code'
+  | 'JetBrains Mono'
+  | 'Pacifico'
+  | 'Dancing Script'
   | 'Indie Flower'
-  | 'Ubuntu';
+  | 'Kalam'
+  | 'Caveat'
+  | 'Cinzel'
+  | 'Uncial Antiqua'
+  | 'Almendra'
+  | 'Creepster'
+  | 'Griffy'
+  | 'Smokum'
+  | 'Special Elite'
+  | 'Fredericka the Great';
   theme: 'light' | 'dark' | 'nature' | 'pastel' | 'moon' | 'custom';
   customColors?: {
     primary: string;
@@ -37,16 +51,30 @@ export const AVAILABLE_FONTS: FontOption[] = [
   { name: 'Lato', fontFamily: "'Lato', sans-serif", cssClass: 'font-option-lato' },
   { name: 'Open Sans', fontFamily: "'Open Sans', sans-serif", cssClass: 'font-option-open-sans' },
   { name: 'Roboto', fontFamily: "'Roboto', sans-serif", cssClass: 'font-option-roboto' },
-  { name: 'SUSE Mono', fontFamily: "'SUSE Mono', monospace", cssClass: 'font-option-suse-mono' },
-  { name: 'Playfair Display', fontFamily: "'Playfair Display', serif", cssClass: 'font-option-playfair-display' },
-  { name: 'Montserrat', fontFamily: "'Montserrat', sans-serif", cssClass: 'font-option-montserrat' },
-  { name: 'Merriweather', fontFamily: "'Merriweather', serif", cssClass: 'font-option-merriweather' },
-  { name: 'Fira Code', fontFamily: "'Fira Code', monospace", cssClass: 'font-option-fira-code' },
-  { name: 'Pacifico', fontFamily: "'Pacifico', cursive", cssClass: 'font-option-pacifico' },
+  { name: 'Ubuntu', fontFamily: "'Ubuntu', sans-serif", cssClass: 'font-option-ubuntu' },
   { name: 'Bebas Neue', fontFamily: "'Bebas Neue', sans-serif", cssClass: 'font-option-bebas-neue' },
+  { name: 'Oswald', fontFamily: "'Oswald', sans-serif", cssClass: 'font-option-oswald' },
   { name: 'Crimson Pro', fontFamily: "'Crimson Pro', serif", cssClass: 'font-option-crimson-pro' },
+  { name: 'Playfair Display', fontFamily: "'Playfair Display', serif", cssClass: 'font-option-playfair-display' },
+  { name: 'Libre Baskerville', fontFamily: "'Libre Baskerville', serif", cssClass: 'font-option-libre-baskerville' },
+  { name: 'Roboto Slab', fontFamily: "'Roboto Slab', serif", cssClass: 'font-option-roboto-slab' },
+  { name: 'Zilla Slab', fontFamily: "'Zilla Slab', serif", cssClass: 'font-option-zilla-slab' },
+  { name: 'Source Code Pro', fontFamily: "'Source Code Pro', monospace", cssClass: 'font-option-source-code-pro' },
+  { name: 'Fira Code', fontFamily: "'Fira Code', monospace", cssClass: 'font-option-fira-code' },
+  { name: 'JetBrains Mono', fontFamily: "'JetBrains Mono', monospace", cssClass: 'font-option-jetbrains-mono' },
+  { name: 'Pacifico', fontFamily: "'Pacifico', cursive", cssClass: 'font-option-pacifico' },
+  { name: 'Dancing Script', fontFamily: "'Dancing Script', cursive", cssClass: 'font-option-dancing-script' },
   { name: 'Indie Flower', fontFamily: "'Indie Flower', cursive", cssClass: 'font-option-indie-flower' },
-  { name: 'Ubuntu', fontFamily: "'Ubuntu', sans-serif", cssClass: 'font-option-ubuntu' }
+  { name: 'Kalam', fontFamily: "'Kalam', cursive", cssClass: 'font-option-kalam' },
+  { name: 'Caveat', fontFamily: "'Caveat', cursive", cssClass: 'font-option-caveat' },
+  { name: 'Cinzel', fontFamily: "'Cinzel', serif", cssClass: 'font-option-cinzel' },
+  { name: 'Uncial Antiqua', fontFamily: "'Uncial Antiqua', cursive", cssClass: 'font-option-uncial-antiqua' },
+  { name: 'Almendra', fontFamily: "'Almendra', serif", cssClass: 'font-option-almendra' },
+  { name: 'Creepster', fontFamily: "'Creepster', cursive", cssClass: 'font-option-creepster' },
+  { name: 'Griffy', fontFamily: "'Griffy', cursive", cssClass: 'font-option-griffy' },
+  { name: 'Smokum', fontFamily: "'Smokum', cursive", cssClass: 'font-option-smokum' },
+  { name: 'Special Elite', fontFamily: "'Special Elite', cursive", cssClass: 'font-option-special-elite' },
+  { name: 'Fredericka the Great', fontFamily: "'Fredericka the Great', cursive", cssClass: 'font-option-fredericka' }
 ];
 
 export const DEFAULT_SETTINGS: AppSettings = {

@@ -36,6 +36,10 @@
         <select id="font" [(ngModel)]="settings.font" (change)="onFontChange()" class="setting-select">
           <option *ngFor="let font of fonts" [value]="font.name" [class]="getFontClass(font)">{{ font.name }}</option>
         </select>
+        <p class="setting-description">
+          Custom fonts may not display properly when using the app without internet connection. 
+          Only system fonts like <code>Lato</code>, <code>Roboto</code> will work reliably offline.
+        </p>
       </div>
       
       <div class="setting-item">
