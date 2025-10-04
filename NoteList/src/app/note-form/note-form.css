@@ -87,7 +87,7 @@
 .form-input:focus, .form-textarea:focus {
   outline: none;
   border-color: var(--color-primary, #007acc);
-  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.25);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
 }
 
 .form-textarea {
@@ -103,143 +103,71 @@
   gap: 10px;
 }
 
-.form-file-input {
-  width: 100%;
-  padding: 8px 0;
-  border: 2px dashed #ced4da;
-  border-radius: 6px;
-  background: #f8f9fa;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.form-file-input:hover {
-  border-color: #007acc;
-  background: #e3f2fd;
-}
-
-.form-file-input:focus {
-  outline: none;
-  border-color: #007acc;
-  box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.25);
-}
-
-.file-drop-zone {
-  border: 2px dashed rgba(0,0,0,0.2);
-  border-radius: 12px;
-  padding: 40px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: linear-gradient(135deg, var(--color-surface, #f8f9fa) 0%, var(--color-background, #e9ecef) 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.file-drop-zone::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(25, 118, 210, 0.05) 50%, transparent 70%);
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
-}
-
-.file-drop-zone:hover {
-  border-color: var(--color-primary, #007acc);
-  background: linear-gradient(135deg, rgba(25, 118, 210, 0.1) 0%, rgba(25, 118, 210, 0.2) 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.15);
-}
-
-.file-drop-zone:hover::before {
-  transform: translateX(100%);
-}
-
-.file-drop-zone.drag-over {
-  border-color: #28a745;
-  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.2) 100%);
-  transform: scale(1.02);
-  box-shadow: 0 12px 35px rgba(40, 167, 69, 0.2);
-}
-
-.drop-zone-content {
+.image-buttons-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 15px;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.upload-icon {
-  width: 48px;
-  height: 48px;
-  color: var(--color-primary, #007acc);
-  transition: all 0.3s ease;
-}
-
-.file-drop-zone:hover .upload-icon {
-  color: var(--color-primary, #005a9e);
-  transform: scale(1.1);
-}
-
-.file-drop-zone.drag-over .upload-icon {
-  color: #28a745;
-  transform: scale(1.15) rotate(5deg);
-}
-
-.drop-zone-text {
+.file-picker-btn {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--color-primary, #007acc);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  align-self: flex-start;
 }
 
-.primary-text {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--color-text, #333);
-  transition: color 0.3s ease;
+.file-picker-btn svg {
+  width: 18px;
+  height: 18px;
 }
 
-.secondary-text {
-  margin: 0;
-  font-size: 12px;
+.file-picker-btn:hover {
+  background: var(--color-secondary, #009e0d);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.file-picker-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.file-info {
   color: var(--color-text, #6c757d);
+  font-size: 12px;
   opacity: 0.7;
-  transition: color 0.3s ease;
-}
-
-.file-drop-zone:hover .primary-text {
-  color: var(--color-primary, #007acc);
-}
-
-.file-drop-zone.drag-over .primary-text {
-  color: #28a745;
 }
 
 .clear-image-btn {
   background: #dc3545;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 12px 20px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  align-self: flex-start;
+  font-family: inherit;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 15px;
+  gap: 8px;
 }
 
 .clear-image-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
 }
 
 .clear-image-btn:hover {
@@ -496,20 +424,5 @@
     margin-left: 0;
   }
   
-  .file-drop-zone {
-    padding: 30px 15px;
-  }
-  
-  .upload-icon {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .primary-text {
-    font-size: 14px;
-  }
-  
-  .secondary-text {
-    font-size: 11px;
-  }
+
 }

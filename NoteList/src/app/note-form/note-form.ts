@@ -175,7 +175,6 @@ export class NoteForm implements OnInit {
   clearImage() {
     this.note.img = '';
     this.selectedImageFile = null;
-    // Clear file input
     const fileInput = document.getElementById('imageFile') as HTMLInputElement;
     if (fileInput) {
       fileInput.value = '';

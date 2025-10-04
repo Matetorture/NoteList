@@ -37,55 +37,50 @@
     <div class="form-group">
       <label for="imageFile">Image</label>
       <div class="image-input-container">
-        <!-- [class.drag-over]="isDragOver" -->
-        <div 
-          class="file-drop-zone"
-          (click)="triggerFileInput()">
-          
-          <div class="drop-zone-content">
-            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <div *ngIf="note.img" class="image-preview">
+          <img [src]="note.img" [alt]="note.title || 'Note image'" />
+          <div class="image-info">
+            <small *ngIf="selectedImageFile">
+              {{ selectedImageFile.name }} ({{ (selectedImageFile.size / 1024 / 1024).toFixed(2) }}MB)
+            </small>
+          </div>
+        </div>
+        
+        <div class="image-buttons-row">
+          <button 
+            type="button"
+            class="file-picker-btn"
+            (click)="triggerFileInput()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7,10 12,15 17,10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
-            
-            <div class="drop-zone-text">
-              <p class="primary-text">
-                Drop image here or click to browse
-              </p>
-              <p class="secondary-text">Supports JPG, PNG, GIF, WebP (max 5MB)</p>
-            </div>
-          </div>
+            Choose Image File
+          </button>
           
-          <input 
-            id="imageFile"
-            type="file"
-            accept="image/*"
-            (change)="onImageFileSelected($event)"
-            class="form-file-input"
-            style="display: none;">
+          <button 
+            *ngIf="note.img" 
+            type="button" 
+            (click)="clearImage()" 
+            class="clear-image-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            Remove Image
+          </button>
         </div>
         
-        <button 
-          *ngIf="note.img" 
-          type="button" 
-          (click)="clearImage()" 
-          class="clear-image-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-          Remove Image
-        </button>
-      </div>
-      
-      <div *ngIf="note.img" class="image-preview">
-        <img [src]="note.img" [alt]="note.title || 'Note image'" />
-        <div class="image-info">
-          <small *ngIf="selectedImageFile">
-            {{ selectedImageFile.name }} ({{ (selectedImageFile.size / 1024 / 1024).toFixed(2) }}MB)
-          </small>
-        </div>
+        <small class="file-info">Supports JPG, PNG, GIF, WebP (max 5MB)</small>
+        
+        <input 
+          id="imageFile"
+          type="file"
+          accept="image/*"
+          (change)="onImageFileSelected($event)"
+          class="form-file-input"
+          style="display: none;">
       </div>
     </div>
 
