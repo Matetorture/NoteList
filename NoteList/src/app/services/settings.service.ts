@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export interface AppSettings {
-  // Display Settings
   showActiveFilters: boolean;
-  
-  // UI Customization
   font: 
   | 'Lato' 
   | 'Open Sans' 
@@ -27,8 +24,6 @@ export interface AppSettings {
     surface: string;
     text: string;
   };
-  
-  // Advanced Settings
   keyboardShortcuts: boolean;
 }
 
@@ -100,7 +95,6 @@ export class SettingsService {
 
   saveSettings(settings: AppSettings): void {
     try {
-      // Log non-theme settings changes
       this.logSettingChanges(settings);
       
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(settings));
@@ -119,43 +113,37 @@ export class SettingsService {
   private logSettingChanges(newSettings: AppSettings): void {
     const oldSettings = this.settings;
     
-    // Display Settings
     if (oldSettings.showActiveFilters !== newSettings.showActiveFilters) {
       console.log('Display Setting - Show Active Filters:', newSettings.showActiveFilters ? 'ON' : 'OFF');
     }
     
-    // UI Customization (non-theme)
     if (oldSettings.font !== newSettings.font) {
       console.log('UI Setting - Font changed to:', newSettings.font);
     }
     
-    // Advanced Settings
     if (oldSettings.keyboardShortcuts !== newSettings.keyboardShortcuts) {
       console.log('Advanced Setting - Keyboard shortcuts:', newSettings.keyboardShortcuts ? 'ENABLED' : 'DISABLED');
     }
   }
 
   private applySettings(): void {
-    // Apply font
     document.documentElement.style.setProperty('--app-font', this.getFontFamily());
     
-    // Apply theme colors
     const colors = this.settings.theme === 'custom' && this.settings.customColors 
       ? this.settings.customColors 
       : THEME_COLORS[this.settings.theme as keyof typeof THEME_COLORS] || THEME_COLORS.light;
     
-    // Apply to document root for global access
     Object.entries(colors).forEach(([key, value]) => {
       document.documentElement.style.setProperty(`--color-${key}`, value);
     });
     
-    // Apply to body for immediate effect
     document.body.style.backgroundColor = colors.background;
     document.body.style.color = colors.text;
     document.body.style.fontFamily = this.getFontFamily();
     
-    // Apply theme class to body for additional styling
     document.body.className = `theme-${this.settings.theme}`;
+    
+    this.updateSvgFilter(colors.text);
     
     console.log('Theme applied globally:', this.settings.theme);
   }
@@ -178,14 +166,19 @@ export class SettingsService {
     }
   }
 
-  // Method to trigger import/export actions
-  importData(): void {
-    console.log('Advanced Setting - Import Data triggered');
-    // TODO: Implement import functionality
+  private updateSvgFilter(textColor: string): void {
+    const brightness = this.getColorBrightness(textColor);
+    const invertValue = brightness > 128 ? 90 : 10;
+    const svgFilter = `brightness(0) saturate(100%) invert(${invertValue}%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1) contrast(100%)`;
+    document.documentElement.style.setProperty('--svg-filter', svgFilter);
+    console.log(`SVG filter calculated: text brightness ${brightness}, invert ${invertValue}% (matching text color)`);
   }
 
-  exportData(): void {
-    console.log('Advanced Setting - Export Data triggered');
-    // TODO: Implement export functionality
+  private getColorBrightness(color: string): number {
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000;
   }
 }

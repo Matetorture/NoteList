@@ -130,6 +130,8 @@
 .file-picker-btn svg {
   width: 18px;
   height: 18px;
+  color: var(--color-text, #333);
+  stroke: currentColor;
 }
 
 .file-picker-btn:hover {
@@ -168,6 +170,8 @@
 .clear-image-btn svg {
   width: 18px;
   height: 18px;
+  color: white;
+  stroke: currentColor;
 }
 
 .clear-image-btn:hover {
