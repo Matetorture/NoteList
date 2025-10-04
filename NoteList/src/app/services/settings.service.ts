@@ -353,8 +353,6 @@ export class SettingsService {
 
   saveSettings(settings: AppSettings): void {
     try {
-      this.logSettingChanges(settings);
-      
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(settings));
       this.settings = settings;
       this.applySettings();
@@ -366,22 +364,6 @@ export class SettingsService {
 
   getSettings(): AppSettings {
     return { ...this.settings };
-  }
-
-  private logSettingChanges(newSettings: AppSettings): void {
-    const oldSettings = this.settings;
-    
-    if (oldSettings.showActiveFilters !== newSettings.showActiveFilters) {
-      console.log('Display Setting - Show Active Filters:', newSettings.showActiveFilters ? 'ON' : 'OFF');
-    }
-    
-    if (oldSettings.font !== newSettings.font) {
-      console.log('UI Setting - Font changed to:', newSettings.font);
-    }
-    
-    if (oldSettings.keyboardShortcuts !== newSettings.keyboardShortcuts) {
-      console.log('Advanced Setting - Keyboard shortcuts:', newSettings.keyboardShortcuts ? 'ENABLED' : 'DISABLED');
-    }
   }
 
   private applySettings(): void {
