@@ -5,7 +5,6 @@
   background: var(--color-background, #ffffff);
   color: var(--color-text, #333);
   font-family: var(--app-font, 'Lato', sans-serif);
-  min-height: 100vh;
 }
 
 .header {
