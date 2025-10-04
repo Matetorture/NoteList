@@ -32,6 +32,7 @@ export class Settings implements OnInit, OnDestroy {
   
   themeColors = THEME_COLORS;
   showCustomColors = false;
+  themeExpanded = false;
 
   constructor(
     private settingsService: SettingsService,
@@ -184,5 +185,27 @@ export class Settings implements OnInit, OnDestroy {
     
     style.innerHTML = cssRules;
     document.head.appendChild(style);
+  }
+
+  getThemeColor(themeKey: string, colorType: string): string {
+    const theme = this.themeColors[themeKey as keyof typeof THEME_COLORS];
+    if (theme) {
+      return theme[colorType as keyof typeof theme] || '#000000';
+    }
+    return '#000000';
+  }
+
+  selectTheme(themeKey: string): void {
+    this.settings.theme = themeKey as AppSettings['theme'];
+    this.onThemeChange();
+  }
+
+  toggleThemeExpanded(): void {
+    this.themeExpanded = !this.themeExpanded;
+  }
+
+  getCurrentThemeName(): string {
+    const currentTheme = this.themes.find(theme => theme.key === this.settings.theme);
+    return currentTheme ? currentTheme.name : 'Unknown Theme';
   }
 }
