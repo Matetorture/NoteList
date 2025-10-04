@@ -130,7 +130,7 @@
 .file-picker-btn svg {
   width: 18px;
   height: 18px;
-  color: var(--color-text, #333);
+  color: white;
   stroke: currentColor;
 }
 
