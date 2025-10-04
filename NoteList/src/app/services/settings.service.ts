@@ -101,22 +101,22 @@ export const AVAILABLE_THEMES: ThemeOption[] = [
     key: 'dark',
     name: 'Dark Theme',
     colors: {
-      primary: '#1976D2',
-      secondary: '#FFC107',
-      background: '#FFFFFF',
-      surface: '#F5F5F5',
-      text: '#212121'
+      primary: '#90CAF9',
+      secondary: '#ffc71d',
+      background: '#121212',
+      surface: '#1E1E1E',
+      text: '#E0E0E0'
     }
   },
   {
     key: 'light',
     name: 'Light Theme',
     colors: {
-      primary: '#90CAF9',
-      secondary: '#ffc71d',
-      background: '#121212',
-      surface: '#1E1E1E',
-      text: '#E0E0E0'
+      primary: '#1976D2',
+      secondary: '#FFC107',
+      background: '#FFFFFF',
+      surface: '#F5F5F5',
+      text: '#212121'
     }
   },
   {
