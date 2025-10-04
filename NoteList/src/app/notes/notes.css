@@ -255,9 +255,13 @@
 }
 
 .filter-arrow {
-  width: 14px;
-  height: 14px;
+  font-size: 12px;
   transition: transform 0.2s ease;
+  color: currentColor;
+}
+
+.filter-arrow.expanded {
+  transform: rotate(180deg);
 }
 
 .category-filter {
@@ -265,8 +269,20 @@
   border: none;
   border-top: 1px solid rgba(0,0,0,0.1);
   border-radius: 0;
-  padding: 20px;
+  padding: 0 20px;
   margin-bottom: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.2s ease;
+}
+
+.category-filter.expanded {
+  max-height: 300px;
+  padding: 20px;
+  opacity: 1;
+  visibility: visible;
 }
 
 .category-filter h3 {

@@ -48,16 +48,13 @@
         </button>
       </div>
       <button (click)="toggleCategoryFilter()" class="filter-btn" [title]="showCategoryFilter ? 'Hide Filters' : 'Show Filters'">
-        <svg class="icon-svg filter-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <polyline *ngIf="!showCategoryFilter" points="6,9 12,15 18,9" stroke-width="2"></polyline>
-          <polyline *ngIf="showCategoryFilter" points="18,15 12,9 6,15" stroke-width="2"></polyline>
-        </svg>
-        Filters
+        <span>Filters</span>
+        <span class="filter-arrow" [class.expanded]="showCategoryFilter">▼</span>
       </button>
     </div>
 
     <!-- Category Filter Panel -->
-    <div *ngIf="showCategoryFilter && allCategories.length > 0" class="category-filter">
+    <div class="category-filter" [class.expanded]="showCategoryFilter && allCategories.length > 0">
       <h3>Filter by Categories:</h3>
       <div class="category-buttons">
         <button 
