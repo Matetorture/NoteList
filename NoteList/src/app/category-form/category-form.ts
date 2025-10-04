@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NoteService, Category } from '../services/note.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-category-form',
@@ -27,7 +28,8 @@ export class CategoryForm implements OnInit {
 
   constructor(
     private router: Router,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private alertService: AlertService
   ) {
     this.newCategoryColor = this.getRandomColor();
   }
@@ -60,13 +62,13 @@ export class CategoryForm implements OnInit {
 
   async addCategory() {
     if (!this.newCategoryName.trim()) {
-      alert('Category name is required!');
+      this.alertService.warning('Validation Error', 'Category name is required!');
       return;
     }
 
     // Check if category already exists
     if (this.categories.some(c => c.name.toLowerCase() === this.newCategoryName.trim().toLowerCase())) {
-      alert('Category with this name already exists!');
+      this.alertService.error('Duplicate Category', 'Category with this name already exists!');
       return;
     }
 
@@ -81,9 +83,10 @@ export class CategoryForm implements OnInit {
       this.newCategoryName = '';
       this.newCategoryColor = this.getRandomColor();
       this.onSearchCategories();
+      this.alertService.success('Success', 'Category added successfully!');
     } catch (error) {
       console.error('Error adding category:', error);
-      alert('Error adding category!');
+      this.alertService.error('Error', 'Error adding category!');
     }
   }
 
@@ -101,7 +104,7 @@ export class CategoryForm implements OnInit {
 
   async saveEdit() {
     if (!this.editName.trim()) {
-      alert('Category name is required!');
+      this.alertService.warning('Validation Error', 'Category name is required!');
       return;
     }
 
@@ -110,7 +113,7 @@ export class CategoryForm implements OnInit {
     // Check if new name conflicts with existing categories (excluding current)
     if (this.editName.toLowerCase() !== this.editingCategory.name.toLowerCase()) {
       if (this.categories.some(c => c.name.toLowerCase() === this.editName.trim().toLowerCase())) {
-        alert('Category with this name already exists!');
+        this.alertService.error('Duplicate Category', 'Category with this name already exists!');
         return;
       }
     }
@@ -130,23 +133,29 @@ export class CategoryForm implements OnInit {
       await this.loadCategories();
       this.cancelEditing();
       this.onSearchCategories();
+      this.alertService.success('Success', 'Category updated successfully!');
     } catch (error) {
       console.error('Error updating category:', error);
-      alert('Error updating category!');
+      this.alertService.error('Error', 'Error updating category!');
     }
   }
 
   async deleteCategory(categoryName: string) {
-    if (confirm(`Are you sure you want to delete category "${categoryName}"?\n\nThis will remove the category from all notes that use it.`)) {
-      try {
-        await this.noteService.deleteCategory(categoryName);
-        await this.loadCategories();
-        this.onSearchCategories();
-      } catch (error) {
-        console.error('Error deleting category:', error);
-        alert('Error deleting category!');
+    this.alertService.confirm(
+      'Delete Category',
+      `Are you sure you want to delete category "${categoryName}"?\n\nThis will remove the category from all notes that use it.`,
+      async () => {
+        try {
+          await this.noteService.deleteCategory(categoryName);
+          await this.loadCategories();
+          this.onSearchCategories();
+          this.alertService.success('Success', 'Category deleted successfully!');
+        } catch (error) {
+          console.error('Error deleting category:', error);
+          this.alertService.error('Error', 'Error deleting category!');
+        }
       }
-    }
+    );
   }
 
   goBack() {

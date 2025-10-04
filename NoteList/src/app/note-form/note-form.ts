@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NoteService, Note, Category } from '../services/note.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-note-form',
@@ -33,7 +34,8 @@ export class NoteForm implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private alertService: AlertService
   ) {}
 
   async ngOnInit() {
@@ -102,7 +104,7 @@ export class NoteForm implements OnInit {
 
   async saveNote() {
     if (!this.note.title.trim()) {
-      alert('Title is required!');
+      this.alertService.warning('Validation Error', 'Title is required!');
       return;
     }
 
@@ -113,10 +115,11 @@ export class NoteForm implements OnInit {
       }
       
       await this.noteService.saveNote(this.note);
-      this.router.navigate(['/notes']);
+      this.alertService.success('Success', 'Note saved successfully!');
+      this.router.navigate(['/note', this.note.id]);
     } catch (error) {
       console.error('Error saving note:', error);
-      alert('Error saving note!');
+      this.alertService.error('Error', 'Error saving note!');
     } finally {
       this.saving = false;
     }
@@ -125,15 +128,20 @@ export class NoteForm implements OnInit {
   async deleteNote() {
     if (!this.isEditMode) return;
     
-    if (confirm('Are you sure you want to delete this note?')) {
-      try {
-        await this.noteService.deleteNote(this.note.id);
-        this.router.navigate(['/notes']);
-      } catch (error) {
-        console.error('Error deleting note:', error);
-        alert('Error deleting note!');
+    this.alertService.confirm(
+      'Delete Note',
+      'Are you sure you want to delete this note? This action cannot be undone.',
+      async () => {
+        try {
+          await this.noteService.deleteNote(this.note.id);
+          this.alertService.success('Success', 'Note deleted successfully!');
+          this.router.navigate(['/notes']);
+        } catch (error) {
+          console.error('Error deleting note:', error);
+          this.alertService.error('Error', 'Error deleting note!');
+        }
       }
-    }
+    );
   }
 
   onImageFileSelected(event: Event) {
@@ -150,13 +158,13 @@ export class NoteForm implements OnInit {
   private processImageFile(file: File) {
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      alert('Please select a valid image file!');
+      this.alertService.error('Invalid File', 'Please select a valid image file!');
       return;
     }
     
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert('Image file size must be less than 5MB!');
+      this.alertService.error('File Too Large', 'Image file size must be less than 5MB!');
       return;
     }
     

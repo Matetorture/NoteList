@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { SettingsService } from "./services/settings.service";
+import { Alert } from "./alert/alert";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Alert],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })

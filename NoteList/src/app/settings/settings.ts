@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SettingsService, AppSettings, DEFAULT_SETTINGS, THEME_COLORS } from '../services/settings.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-settings',
@@ -46,7 +47,8 @@ export class Settings implements OnInit {
 
   constructor(
     private settingsService: SettingsService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
 
   ngOnInit() {
@@ -104,18 +106,23 @@ export class Settings implements OnInit {
       }, 300);
     } catch (error) {
       console.error('Error saving settings:', error);
-      alert('Error saving settings!');
+      this.alertService.error('Error', 'Error saving settings!');
       this.saving = false;
     }
   }
 
   resetToDefaults() {
-    if (confirm('Are you sure you want to reset all settings to defaults?')) {
-      this.settings = { ...DEFAULT_SETTINGS };
-      this.showCustomColors = false;
-      this.saveSettings();
-      console.log('Settings reset to defaults');
-    }
+    this.alertService.confirm(
+      'Reset Settings',
+      'Are you sure you want to reset all settings to defaults? This action cannot be undone.',
+      () => {
+        this.settings = { ...DEFAULT_SETTINGS };
+        this.showCustomColors = false;
+        this.saveSettings();
+        this.alertService.success('Success', 'Settings reset to defaults successfully!');
+        console.log('Settings reset to defaults');
+      }
+    );
   }
 
   goBack() {
