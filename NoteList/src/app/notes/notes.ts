@@ -208,8 +208,8 @@ export class Notes implements OnInit, OnDestroy {
   async moveNoteUp(index: number, event: Event) {
     event.stopPropagation();
     if (index > 0) {
-      const currentNote = this.notes[index];
-      const previousNote = this.notes[index - 1];
+      const currentNote = { ...this.notes[index] };
+      const previousNote = { ...this.notes[index - 1] };
       
       const tempId = currentNote.id;
       currentNote.id = previousNote.id;
@@ -218,15 +218,21 @@ export class Notes implements OnInit, OnDestroy {
       await this.noteService.saveNote(currentNote);
       await this.noteService.saveNote(previousNote);
       
-      await this.loadData();
+      this.notes[index] = previousNote;
+      this.notes[index - 1] = currentNote;
+      
+      const allNotesCurrentIndex = this.allNotes.findIndex(n => n.id === currentNote.id);
+      const allNotesPreviousIndex = this.allNotes.findIndex(n => n.id === previousNote.id);
+      if (allNotesCurrentIndex !== -1) this.allNotes[allNotesCurrentIndex] = currentNote;
+      if (allNotesPreviousIndex !== -1) this.allNotes[allNotesPreviousIndex] = previousNote;
     }
   }
 
   async moveNoteDown(index: number, event: Event) {
     event.stopPropagation();
     if (index < this.notes.length - 1) {
-      const currentNote = this.notes[index];
-      const nextNote = this.notes[index + 1];
+      const currentNote = { ...this.notes[index] };
+      const nextNote = { ...this.notes[index + 1] };
       
       const tempId = currentNote.id;
       currentNote.id = nextNote.id;
@@ -235,7 +241,13 @@ export class Notes implements OnInit, OnDestroy {
       await this.noteService.saveNote(currentNote);
       await this.noteService.saveNote(nextNote);
       
-      await this.loadData();
+      this.notes[index] = nextNote;
+      this.notes[index + 1] = currentNote;
+      
+      const allNotesCurrentIndex = this.allNotes.findIndex(n => n.id === currentNote.id);
+      const allNotesNextIndex = this.allNotes.findIndex(n => n.id === nextNote.id);
+      if (allNotesCurrentIndex !== -1) this.allNotes[allNotesCurrentIndex] = currentNote;
+      if (allNotesNextIndex !== -1) this.allNotes[allNotesNextIndex] = nextNote;
     }
   }
 }
