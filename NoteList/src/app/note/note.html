@@ -35,7 +35,13 @@
       <img [src]="note.img" [alt]="note.title" loading="lazy" />
     </div>
     
-    <div *ngIf="note.content" class="note-body">{{ note.content }}</div>
+    <div *ngIf="note.content" class="note-body">
+      <div class="content-with-lines">
+        <div class="content-text">
+          <div *ngFor="let line of getContentLines()" class="content-line">{{ line }}</div>
+        </div>
+      </div>
+    </div>
     
     <div class="note-actions">
       <button [routerLink]="['/note-form', note.id]" class="edit-btn">Edit</button>

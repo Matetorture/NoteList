@@ -56,6 +56,13 @@ export class Note implements OnInit, OnDestroy {
     return `${hours}:${minutes} ${day}-${month}-${year}`;
   }
 
+  getContentLines(): string[] {
+    if (!this.note?.content) {
+      return [];
+    }
+    return this.note.content.split('\n');
+  }
+
   ngOnDestroy() {
     this.keyboardShortcuts.stopListening();
     this.keyboardShortcuts.clearAllShortcuts();
