@@ -35,9 +35,7 @@
       <img [src]="note.img" [alt]="note.title" loading="lazy" />
     </div>
     
-    <div *ngIf="note.content" class="note-body">
-      {{ note.content }}
-    </div>
+    <div *ngIf="note.content" class="note-body">{{ note.content }}</div>
     
     <div class="note-actions">
       <button [routerLink]="['/note-form', note.id]" class="edit-btn">Edit</button>
