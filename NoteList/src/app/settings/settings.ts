@@ -148,6 +148,12 @@ export class Settings implements OnInit, OnDestroy {
       ctrl: false,
       action: () => this.router.navigate(['/notes'])
     });
+
+    this.keyboardShortcutsService.registerShortcut({
+      key: 'Z',
+      ctrl: true,
+      action: () => this.router.navigate(['/notes'])
+    });
   }
 
   getFontClass(fontOption: FontOption): string {

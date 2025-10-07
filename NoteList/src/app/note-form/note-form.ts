@@ -233,6 +233,22 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
       action: () => this.goBack()
     });
 
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Z',
+      ctrl: true,
+      action: () => this.goBack()
+    });
+
+    this.keyboardShortcuts.registerShortcut({
+      key: 'S',
+      ctrl: true,
+      action: () => {
+        if (!this.saving) {
+          this.saveNote();
+        }
+      }
+    });
+
     this.keyboardShortcuts.startListening();
   }
 }

@@ -241,6 +241,12 @@ export class CategoryForm implements OnInit, OnDestroy {
       action: () => this.router.navigate(['/notes'])
     });
 
+    this.keyboardShortcuts.registerShortcut({
+      key: 'Z',
+      ctrl: true,
+      action: () => this.router.navigate(['/notes'])
+    });
+
     this.keyboardShortcuts.startListening();
   }
 

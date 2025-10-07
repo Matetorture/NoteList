@@ -190,11 +190,6 @@ export class Notes implements OnInit, OnDestroy {
       action: () => this.toggleCategoryFilter()
     });
 
-    this.keyboardShortcuts.registerShortcut({
-      key: 'Escape',
-      action: () => this.router.navigate(['/notes'])
-    });
-
     this.keyboardShortcuts.startListening();
   }
 
