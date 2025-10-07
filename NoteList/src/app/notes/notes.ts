@@ -55,22 +55,14 @@ export class Notes implements OnInit, OnDestroy {
 
   async loadData() {
     this.loading = true;
-    this.allNotes = await this.noteService.getNotes();
-    this.notes = [...this.allNotes];
     this.allCategories = await this.noteService.getAllCategories();
     this.availableCategories = await this.noteService.getCategories();
-    this.applyFilters();
-    this.loading = false;
+
+    await this.updateBaseNotesAndApplyFilters();
   }
 
   async refreshNotes() {
-    if (this.selectedCategories.length > 0) {
-      this.loading = true;
-      this.notes = await this.noteService.getNotesByCategories(this.selectedCategories);
-      this.loading = false;
-    } else {
-      await this.loadData();
-    }
+    await this.updateBaseNotesAndApplyFilters();
   }
 
   toggleCategoryFilter() {
@@ -96,25 +88,31 @@ export class Notes implements OnInit, OnDestroy {
   }
 
   async filterByCategories() {
+    await this.updateBaseNotesAndApplyFilters();
+  }
+
+  async onSearch() {
+    this.filterService.updateSearchTerm(this.searchTerm);
+    await this.updateBaseNotesAndApplyFilters();
+  }
+
+  async clearSearch() {
+    this.searchTerm = '';
+    this.filterService.updateSearchTerm(this.searchTerm);
+    await this.updateBaseNotesAndApplyFilters();
+  }
+
+  async updateBaseNotesAndApplyFilters() {
     this.loading = true;
+
     if (this.selectedCategories.length > 0) {
       this.allNotes = await this.noteService.getNotesByCategories(this.selectedCategories);
     } else {
       this.allNotes = await this.noteService.getNotes();
     }
+
     this.applyFilters();
     this.loading = false;
-  }
-
-  onSearch() {
-    this.filterService.updateSearchTerm(this.searchTerm);
-    this.applyFilters();
-  }
-
-  clearSearch() {
-    this.searchTerm = '';
-    this.filterService.updateSearchTerm(this.searchTerm);
-    this.applyFilters();
   }
 
   applyFilters() {
