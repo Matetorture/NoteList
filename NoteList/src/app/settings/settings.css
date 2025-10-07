@@ -181,9 +181,20 @@
 .color-input input[type="color"] {
   width: 100%;
   height: 40px;
-  border: 1px solid rgba(0,0,0,0.2);
-  border-radius: 6px;
+  border: none;
   cursor: pointer;
+  background: transparent;
+  padding: 0;
+}
+
+.color-input input[type="color"]::-webkit-color-swatch {
+  border-radius: 10px;
+  border: 3px solid rgba(0,0,0,0.5);
+}
+
+.color-input input[type="color"]::-moz-color-swatch {
+  border-radius: 10px;
+  border: 3px solid rgba(0, 0, 0, 0.5);
 }
 
 .action-btn {
@@ -405,7 +416,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.8);
+  border: 2px solid rgba(0,0,0,0.4);
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   display: inline-flex;
   align-items: center;
@@ -414,20 +425,4 @@
   font-weight: bold;
   color: #666;
   background: #ddd;
-}
-
-.color-dot.primary {
-  border-color: rgba(255,255,255,0.9);
-}
-
-.color-dot.secondary {
-  border-color: rgba(255,255,255,0.9);
-}
-
-.color-dot.background {
-  border-color: rgba(0,0,0,0.2);
-}
-
-.color-dot.surface {
-  border-color: rgba(0,0,0,0.1);
 }

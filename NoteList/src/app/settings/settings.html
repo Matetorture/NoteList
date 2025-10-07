@@ -79,10 +79,10 @@
                (click)="selectTheme(theme.key)">
             <span class="theme-name">{{ theme.name }}</span>
             <div *ngIf="theme.key !== 'custom'" class="color-dots">
-              <span class="color-dot primary" [style.background-color]="getThemeColor(theme.key, 'primary')"></span>
-              <span class="color-dot secondary" [style.background-color]="getThemeColor(theme.key, 'secondary')"></span>
-              <span class="color-dot background" [style.background-color]="getThemeColor(theme.key, 'background')"></span>
-              <span class="color-dot surface" [style.background-color]="getThemeColor(theme.key, 'surface')"></span>
+              <span class="color-dot" [style.background-color]="getThemeColor(theme.key, 'primary')"></span>
+              <span class="color-dot" [style.background-color]="getThemeColor(theme.key, 'secondary')"></span>
+              <span class="color-dot" [style.background-color]="getThemeColor(theme.key, 'background')"></span>
+              <span class="color-dot" [style.background-color]="getThemeColor(theme.key, 'surface')"></span>
             </div>
             <div *ngIf="theme.key === 'custom'" class="color-dots">
               <span class="color-dot">?</span>
