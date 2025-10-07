@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NoteService, Note as NoteModel, Category } from '../services/note.service';
 import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
+import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-note',
@@ -21,7 +22,8 @@ export class Note implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private noteService: NoteService,
     private keyboardShortcuts: KeyboardShortcutsService,
-    private router: Router
+    private router: Router,
+    private settingsService: SettingsService
   ) {}
 
   async ngOnInit() {
@@ -61,6 +63,20 @@ export class Note implements OnInit, OnDestroy {
       return [];
     }
     return this.note.content.split('\n');
+  }
+
+  get showLineNumbers(): boolean {
+    return this.settingsService.getSettings().showLineNumbers;
+  }
+
+  getLineNumberWidth(): number {
+    const lineCount = this.getContentLines().length;
+    const digits = lineCount.toString().length;
+    return Math.max(32, digits * 8 + 16);
+  }
+
+  getContentPaddingLeft(): number {
+    return this.getLineNumberWidth() + 12;
   }
 
   ngOnDestroy() {

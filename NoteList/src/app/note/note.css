@@ -192,26 +192,32 @@
   overflow: hidden;
   font-size: 14px;
   line-height: 1.5;
-  counter-reset: line-counter;
   position: relative;
 }
 
-.content-with-lines::before {
+.content-with-lines.show-line-numbers {
+  counter-reset: line-counter;
+}
+
+.content-with-lines.show-line-numbers::before {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  min-width: 32px;
+  width: var(--line-number-width, 32px);
   background: var(--color-background, #f8f9fa);
   z-index: 1;
 }
 
 .content-text {
   padding: 12px;
-  padding-left: 40px;
   background: var(--color-surface, #ffffff);
   position: relative;
+}
+
+.content-with-lines.show-line-numbers .content-text {
+  padding-left: var(--content-padding-left, 40px);
 }
 
 .content-line {
@@ -219,20 +225,22 @@
   white-space: pre-wrap;
   word-wrap: break-word;
   color: var(--color-text, #333);
-  counter-increment: line-counter;
   min-height: 21px;
   line-height: 21px;
 }
 
-.content-line::before {
+.content-with-lines.show-line-numbers .content-line {
+  counter-increment: line-counter;
+}
+
+.content-with-lines.show-line-numbers .content-line::before {
   content: counter(line-counter);
   position: absolute;
-  left: -38px;
-  width: 30px;
+  left: calc(var(--content-padding-left, 40px) * -1 + 4px);
+  width: calc(var(--line-number-width, 32px) - 8px);
   text-align: right;
-
   color: #676767;
-  padding: 0 8px;
+  padding: 0 4px;
   font-size: 12px;
   font-weight: 500;
   user-select: none;

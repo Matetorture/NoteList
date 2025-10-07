@@ -36,7 +36,10 @@
     </div>
     
     <div *ngIf="note.content" class="note-body">
-      <div class="content-with-lines">
+      <div class="content-with-lines" 
+           [class.show-line-numbers]="showLineNumbers"
+           [style.--line-number-width.px]="getLineNumberWidth()"
+           [style.--content-padding-left.px]="getContentPaddingLeft()">
         <div class="content-text">
           <div *ngFor="let line of getContentLines()" class="content-line">{{ line }}</div>
         </div>

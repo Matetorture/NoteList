@@ -40,6 +40,14 @@
         </label>
         <p class="setting-description">Display creation dates for notes</p>
       </div>
+
+      <div class="setting-item">
+        <label class="setting-label">
+          <input type="checkbox" [(ngModel)]="settings.showLineNumbers" (change)="onDisplaySettingChange()">
+          Show Line Numbers
+        </label>
+        <p class="setting-description">Display line numbers in note content view</p>
+      </div>
     </div>
 
     <div class="settings-section">

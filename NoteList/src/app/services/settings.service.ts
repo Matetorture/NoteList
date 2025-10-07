@@ -22,6 +22,7 @@ export interface AppSettings {
   showActiveFilters: boolean;
   showSuccessAlerts: boolean;
   showCreationDates: boolean;
+  showLineNumbers: boolean;
   font: 
   | 'Lato' 
   | 'Open Sans' 
@@ -95,6 +96,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   showActiveFilters: true,
   showSuccessAlerts: true,
   showCreationDates: true,
+  showLineNumbers: true,
   font: 'Lato',
   theme: 'dark',
   keyboardShortcuts: true
