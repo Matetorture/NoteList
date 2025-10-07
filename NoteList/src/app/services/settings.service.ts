@@ -23,6 +23,7 @@ export interface AppSettings {
   showSuccessAlerts: boolean;
   showCreationDates: boolean;
   showLineNumbers: boolean;
+  contentTextareaHeight: number;
   font: 
   | 'Lato' 
   | 'Open Sans' 
@@ -97,6 +98,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   showSuccessAlerts: true,
   showCreationDates: true,
   showLineNumbers: true,
+  contentTextareaHeight: 200,
   font: 'Lato',
   theme: 'dark',
   keyboardShortcuts: true

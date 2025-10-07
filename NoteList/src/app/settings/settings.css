@@ -119,6 +119,7 @@
   color: var(--color-text, #333);
   transition: border-color 0.2s ease;
   margin-top: 5px;
+  box-sizing: border-box;
 }
 
 .setting-select:focus,
@@ -128,6 +129,17 @@
   box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.25);
 }
 
+.setting-input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.setting-input[type="number"]::-webkit-outer-spin-button,
+.setting-input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
 
 #font option {
   padding: 8px 12px;

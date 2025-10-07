@@ -90,8 +90,8 @@
         id="content"
         [(ngModel)]="note.content" 
         name="content"
-        rows="4"
         class="form-textarea"
+        [style.height.px]="contentTextareaHeight"
         placeholder="Write your note content here...">
       </textarea>
     </div>

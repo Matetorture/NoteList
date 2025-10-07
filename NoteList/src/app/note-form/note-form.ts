@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NoteService, Note, Category } from '../services/note.service';
 import { AlertService } from '../services/alert.service';
 import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
+import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-note-form',
@@ -37,7 +38,8 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     private noteService: NoteService,
     private alertService: AlertService,
-    private keyboardShortcuts: KeyboardShortcutsService
+    private keyboardShortcuts: KeyboardShortcutsService,
+    private settingsService: SettingsService
   ) {}
 
   async ngOnInit() {
@@ -214,6 +216,10 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
     if (fileInput) {
       fileInput.click();
     }
+  }
+
+  get contentTextareaHeight(): number {
+    return this.settingsService.getSettings().contentTextareaHeight;
   }
 
   ngOnDestroy() {

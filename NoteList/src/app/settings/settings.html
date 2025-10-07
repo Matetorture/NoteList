@@ -139,6 +139,19 @@
           <code>Escape</code> - Navigate back
         </div>
       </div>
+
+      <div class="setting-item">
+        <label class="setting-label" for="contentTextareaHeight">Content Textarea Height (px)</label>
+        <input type="number" 
+               id="contentTextareaHeight" 
+               [(ngModel)]="settings.contentTextareaHeight" 
+               (change)="onAdvancedSettingChange()"
+               min="200" 
+               max="1000" 
+               step="50"
+               class="setting-input">
+        <p class="setting-description">Set the height of the content input area in note editing form (default: 200px)</p>
+      </div>
       
       <div class="setting-item">
         <div class="import-export-buttons">
