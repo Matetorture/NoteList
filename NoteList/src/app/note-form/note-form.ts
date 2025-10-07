@@ -32,6 +32,7 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
   loading = true;
   saving = false;
   selectedImageFile: File | null = null;
+  isExitDialogShowing = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -161,8 +162,23 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
   }
 
   goBack() {
+    if (this.isExitDialogShowing) {
+      return;
+    }
+
     if (this.isEditMode && this.note.id > 0) {
-      this.router.navigate(['/note', this.note.id]);
+      this.isExitDialogShowing = true;
+      this.alertService.confirm(
+        'Leave Editor',
+        'Are you sure you want to leave the editor?',
+        () => {
+          this.isExitDialogShowing = false;
+          this.router.navigate(['/note', this.note.id]);
+        },
+        () => {
+          this.isExitDialogShowing = false;
+        }
+      );
     } else {
       this.router.navigate(['/notes']);
     }
