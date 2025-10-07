@@ -256,3 +256,37 @@
 .content-line:empty::after {
   content: " ";
 }
+
+.copy-line-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background, #fff);
+  border: 1px solid var(--color-primary, #ddd);
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin-left: 8px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  width: 24px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.copy-line-btn:hover {
+  opacity: 1;
+  background: var(--color-surface, #f5f5f5);
+}
+
+.copy-line-btn:active {
+  transform: scale(0.95);
+  background-color: var(--color-primary, #ddd);
+}
+
+.copy-icon {
+  width: 12px;
+  height: 12px;
+  filter: var(--svg-filter, invert(0));
+  pointer-events: none;
+}

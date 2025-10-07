@@ -48,6 +48,14 @@
         </label>
         <p class="setting-description">Display line numbers in note content view</p>
       </div>
+
+      <div class="setting-item">
+        <label class="setting-label">
+          <input type="checkbox" [(ngModel)]="settings.showCopyButtons" (change)="onDisplaySettingChange()">
+          Show Copy Line Buttons
+        </label>
+        <p class="setting-description">Display copy line buttons on hover for each line in note content view</p>
+      </div>
     </div>
 
     <div class="settings-section">

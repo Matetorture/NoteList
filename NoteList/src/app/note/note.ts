@@ -17,6 +17,7 @@ export class Note implements OnInit, OnDestroy {
   note: NoteModel | null = null;
   categories: Category[] = [];
   loading = true;
+  hoveredLineIndex: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,6 +70,10 @@ export class Note implements OnInit, OnDestroy {
     return this.settingsService.getSettings().showLineNumbers;
   }
 
+  get showCopyButtons(): boolean {
+    return this.settingsService.getShowCopyButtons();
+  }
+
   getLineNumberWidth(): number {
     const lineCount = this.getContentLines().length;
     const digits = lineCount.toString().length;
@@ -77,6 +82,25 @@ export class Note implements OnInit, OnDestroy {
 
   getContentPaddingLeft(): number {
     return this.getLineNumberWidth() + 12;
+  }
+
+  showCopyButton(lineIndex: number) {
+    this.hoveredLineIndex = lineIndex;
+  }
+
+  hideCopyButton(lineIndex: number) {
+    this.hoveredLineIndex = null;
+  }
+
+  async copyLineToClipboard(line: string, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    try {
+      await navigator.clipboard.writeText(line);
+    } catch (err) {
+      console.error('Failed to copy line to clipboard:', err);
+    }
   }
 
   ngOnDestroy() {

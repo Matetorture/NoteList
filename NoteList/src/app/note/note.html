@@ -41,7 +41,18 @@
            [style.--line-number-width.px]="getLineNumberWidth()"
            [style.--content-padding-left.px]="getContentPaddingLeft()">
         <div class="content-text">
-          <div *ngFor="let line of getContentLines()" class="content-line">{{ line }}</div>
+          <div *ngFor="let line of getContentLines(); let i = index" 
+               class="content-line"
+               [class.with-copy-buttons]="showCopyButtons"
+               (mouseenter)="showCopyButtons ? showCopyButton(i) : null"
+               (mouseleave)="showCopyButtons ? hideCopyButton(i) : null">{{ line }}<button 
+               *ngIf="showCopyButtons && hoveredLineIndex === i" 
+               class="copy-line-btn" 
+               (click)="copyLineToClipboard(line, $event)" 
+               title="Copy line">
+               <img src="../../assets/copy.svg" alt="Copy" class="copy-icon">
+              </button>
+            </div>
         </div>
       </div>
     </div>

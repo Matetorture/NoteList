@@ -23,6 +23,7 @@ export interface AppSettings {
   showSuccessAlerts: boolean;
   showCreationDates: boolean;
   showLineNumbers: boolean;
+  showCopyButtons: boolean;
   contentTextareaHeight: number;
   font: 
   | 'Lato' 
@@ -98,6 +99,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   showSuccessAlerts: true,
   showCreationDates: true,
   showLineNumbers: true,
+  showCopyButtons: true,
   contentTextareaHeight: 200,
   font: 'Lato',
   theme: 'dark',
@@ -439,6 +441,10 @@ export class SettingsService {
 
   getShowCreationDates(): boolean {
     return this.settings.showCreationDates;
+  }
+
+  getShowCopyButtons(): boolean {
+    return this.settings.showCopyButtons;
   }
 
   private getColorBrightness(color: string): number {
