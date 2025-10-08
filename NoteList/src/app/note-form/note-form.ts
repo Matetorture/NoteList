@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NoteService, Note, Category } from '../services/note.service';
 import { AlertService } from '../services/alert.service';
 import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
@@ -9,7 +9,7 @@ import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-note-form',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   standalone: true,
   templateUrl: './note-form.html',
   styleUrl: './note-form.css'
