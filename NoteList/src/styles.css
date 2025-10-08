@@ -48,6 +48,7 @@ img[src$=".svg"] {
 }
 
 input,
-button {
+button,
+select {
   font-family: inherit;
 }
