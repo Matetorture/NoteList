@@ -50,25 +50,35 @@
       </button>
     </div>
 
-    <div class="category-filter" [class.expanded]="showCategoryFilter && allCategories.length > 0">
+    <div class="category-filter" [class.expanded]="showCategoryFilter">
       <h3>Filter by Categories:</h3>
-      <div class="category-buttons">
-        <button 
-          *ngFor="let category of allCategories" 
-          (click)="toggleCategory(category)"
-          [class.selected]="isCategorySelected(category)"
-          [style.border-color]="getCategoryColor(category)"
-          class="category-btn">
-          <span class="category-color" [style.background-color]="getCategoryColor(category)"></span>
-          {{ category }}
-        </button>
+      
+      <div *ngIf="allCategories.length > 0; else noCategoriesTemplate">
+        <div class="category-buttons">
+          <button 
+            *ngFor="let category of allCategories" 
+            (click)="toggleCategory(category)"
+            [class.selected]="isCategorySelected(category)"
+            [style.border-color]="getCategoryColor(category)"
+            class="category-btn">
+            <span class="category-color" [style.background-color]="getCategoryColor(category)"></span>
+            {{ category }}
+          </button>
+        </div>
+        <div class="filter-actions">
+          <button (click)="clearFilters()" class="clear-btn">Clear All Filters</button>
+          <span class="selected-count" *ngIf="selectedCategories.length > 0">
+            Selected: {{ selectedCategories.length }}
+          </span>
+        </div>
       </div>
-      <div class="filter-actions">
-        <button (click)="clearFilters()" class="clear-btn">Clear All Filters</button>
-        <span class="selected-count" *ngIf="selectedCategories.length > 0">
-          Selected: {{ selectedCategories.length }}
-        </span>
-      </div>
+
+      <ng-template #noCategoriesTemplate>
+        <div class="no-categories-message">
+          <p>No categories available yet.</p>
+          <p>Create categories in <a [routerLink]="['/categories']" class="create-categories-link">Manage Categories</a> to filter your notes.</p>
+        </div>
+      </ng-template>
     </div>
   </div>
   

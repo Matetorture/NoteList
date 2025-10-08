@@ -574,3 +574,32 @@
   color: #4e4e4e;
   transform: none;
 }
+
+.no-categories-message {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  color: var(--color-text-secondary, #666);
+}
+
+.no-categories-message p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.no-categories-message p:first-child {
+  font-weight: 500;
+  color: var(--color-text, #333);
+}
+
+.create-categories-link {
+  color: var(--color-primary, #007bff);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.create-categories-link:hover {
+  color: var(--color-secondary, #0056b3);
+  text-decoration: none;
+}
