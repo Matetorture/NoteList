@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { NoteService, Note as NoteModel, Category } from '../services/note.service';
 import { KeyboardShortcutsService } from '../services/keyboard-shortcuts.service';
 import { SettingsService } from '../services/settings.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-note',
@@ -24,17 +25,16 @@ export class Note implements OnInit, OnDestroy {
     private noteService: NoteService,
     private keyboardShortcuts: KeyboardShortcutsService,
     private router: Router,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private alertService: AlertService
   ) {}
 
   async ngOnInit() {
-    // Scroll to top immediately when component loads
     window.scrollTo(0, 0);
     
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.setupKeyboardShortcuts(id);
     
-    // Load categories first to get colors
     this.categories = await this.noteService.getCategories();
     
     if (id) {
@@ -130,5 +130,44 @@ export class Note implements OnInit, OnDestroy {
     });
 
     this.keyboardShortcuts.startListening();
+  }
+
+  downloadImage() {
+    if (!this.note?.img) {
+      this.alertService.error('No Image', 'No image available to download');
+      return;
+    }
+
+    try {
+      const base64Data = this.note.img.split(',')[1];
+      const mimeType = this.note.img.split(',')[0].split(':')[1].split(';')[0];
+      
+      const byteCharacters = atob(base64Data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: mimeType });
+
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      
+      const extension = mimeType.split('/')[1] || 'jpg';
+      const fileName = `${this.note.title || 'note-image'}.${extension}`;
+      link.download = fileName;
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      window.URL.revokeObjectURL(url);
+      
+      this.alertService.success('Downloaded!', `Image saved as ${fileName}`);
+    } catch (error) {
+      console.error('Error downloading image:', error);
+      this.alertService.error('Download Failed', 'Unable to download image');
+    }
   }
 }

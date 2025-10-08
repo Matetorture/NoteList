@@ -290,3 +290,39 @@
   filter: var(--svg-filter, invert(0));
   pointer-events: none;
 }
+
+.image-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.download-image-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-primary, #007bff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.download-image-btn:hover {
+  background: var(--color-secondary, #0056b3);
+  transform: translateY(-1px);
+}
+
+.download-image-btn:active {
+  transform: translateY(0);
+}
+
+.download-icon {
+  width: 16px;
+  height: 16px;
+  color: #fff;
+}
