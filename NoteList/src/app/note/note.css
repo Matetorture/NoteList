@@ -225,8 +225,8 @@
   white-space: pre-wrap;
   word-wrap: break-word;
   color: var(--color-text, #333);
-  min-height: 21px;
-  line-height: 21px;
+  min-height: 28px;
+  line-height: 28px;
 }
 
 .content-with-lines.show-line-numbers .content-line {
@@ -244,8 +244,8 @@
   font-size: 12px;
   font-weight: 500;
   user-select: none;
-  height: 21px;
-  line-height: 21px;
+  height: 28px;
+  line-height: 28px;
   display: flex;
   align-items: center;
   justify-content: flex-end;

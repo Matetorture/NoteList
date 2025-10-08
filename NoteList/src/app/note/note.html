@@ -44,9 +44,9 @@
           <div *ngFor="let line of getContentLines(); let i = index" 
                class="content-line"
                [class.with-copy-buttons]="showCopyButtons"
-               (mouseenter)="showCopyButtons ? showCopyButton(i) : null"
-               (mouseleave)="showCopyButtons ? hideCopyButton(i) : null">{{ line }}<button 
-               *ngIf="showCopyButtons && hoveredLineIndex === i" 
+               (mouseenter)="showCopyButtons && line.trim() ? showCopyButton(i) : null"
+               (mouseleave)="showCopyButtons && line.trim() ? hideCopyButton(i) : null">{{ line }}<button 
+               *ngIf="showCopyButtons && hoveredLineIndex === i && line.trim()" 
                class="copy-line-btn" 
                (click)="copyLineToClipboard(line, $event)" 
                title="Copy line">
