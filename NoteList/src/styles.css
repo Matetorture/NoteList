@@ -46,3 +46,8 @@ img[src$=".svg"] {
   scrollbar-width: thin;
   scrollbar-color: var(--color-text, #333) var(--color-surface, #f5f5f5);
 }
+
+input,
+button {
+  font-family: inherit;
+}
