@@ -18,6 +18,7 @@
       <input 
         id="title"
         [(ngModel)]="note.title" 
+        (input)="onFieldChange()"
         name="title"
         required 
         class="form-input"
@@ -29,6 +30,7 @@
       <input 
         id="description"
         [(ngModel)]="note.description" 
+        (input)="onFieldChange()"
         name="description"
         class="form-input"
         placeholder="Short description">
@@ -89,6 +91,7 @@
       <textarea 
         id="content"
         [(ngModel)]="note.content" 
+        (input)="onFieldChange()"
         name="content"
         class="form-textarea"
         [style.height.px]="contentTextareaHeight"
@@ -138,7 +141,7 @@
       
       <div *ngIf="availableCategories.length === 0" class="no-categories-available">
         <p>No categories available yet.</p>
-        <p>Create categories in <a [routerLink]="['/categories']" class="create-categories-link">Manage Categories</a> to organize your notes.</p>
+        <p>Create categories in <button type="button" (click)="navigateToCategories()" class="create-categories-link">Manage Categories</button> to organize your notes.</p>
       </div>
       
       <div *ngIf="availableCategories.length > 0 && filteredCategories.length === 0 && categorySearchTerm" class="no-categories-found">
