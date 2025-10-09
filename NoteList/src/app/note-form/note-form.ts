@@ -353,12 +353,14 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
                       this.note.categories.length > 0 ||
                       this.selectedImageFile !== null;
 
-    if (hasContent && !this.isEditMode) {
+    if (hasContent) {
       this.alertService.confirm(
-        'Leave Note Creation',
+        this.isEditMode ? 'Leave Note Editor' : 'Leave Note Creation',
         'Are you sure you want to leave? Your note will not be saved and all progress will be lost.\n\nTip: You can always add categories later after saving the note.',
         () => {
-          this.clearDraft();
+          if(!this.isEditMode) {
+            this.clearDraft();
+          }
           this.router.navigate(['/categories']);
         }
       );
