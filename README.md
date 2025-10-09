@@ -2,6 +2,24 @@
 
 <img src="README_img/icon.png" alt="Application icon" width="100">
 
+## Table of Contents
+
+- [About](#about)
+- [Technologies](#technologies)
+- [Key Features](#key-features)
+  - [📝 Note Management](#📝-note-management)
+  - [🏷️ Category System](#🏷️-category-system)
+  - [🔍 Advanced Filtering](#🔍-advanced-filtering)
+  - [⌨️ Keyboard Shortcuts](#⌨️-keyboard-shortcuts)
+  - [🎨 Theme System](#🎨-theme-system)
+  - [⚙️ Advanced Settings](#⚙️-advanced-settings)
+- [Screenshots](#screenshots)
+- [Data Structure](#data-structure)
+- [Data Storage](#data-storage)
+- [Installation and Setup](#installation-and-setup)
+- [Technical Features](#technical-features)
+- [License](#license)
+
 ## About
 
 NoteList is a modern desktop application for managing notes, designed with simplicity and advanced organizational features in mind. The application enables creating, editing, and categorizing notes with the ability to add images and advanced content filtering.
@@ -33,12 +51,27 @@ NoteList is a modern desktop application for managing notes, designed with simpl
 - Active filters preview
 
 ### ⌨️ Keyboard Shortcuts
+
+#### Notes List
 - `F5` or `Ctrl+R` - Refresh notes
 - `Ctrl + N` - New note
 - `Ctrl + F` - Toggle category filters
 - `/` or `Enter` - Focus search field
-- `Escape` - Return to notes list
-- `Enter` - Edit note (when viewing note)
+
+#### Note View
+- `Enter` - Edit note
+- `Escape` or `Ctrl + Z` - Return to notes list
+
+#### Note Editor
+- `Ctrl + S` - Save note
+- `Escape` or `Ctrl + Z` - Return to previous view
+
+#### Category Management
+- `/` or `Enter` - Focus category search
+- `Escape` or `Ctrl + Z` - Return to notes list
+
+#### Settings
+- `Escape` or `Ctrl + Z` - Return to notes list
 
 ### 🎨 Theme System
 - 20 predefined color themes
