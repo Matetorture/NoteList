@@ -137,6 +137,15 @@
   background: #c82333;
 }
 
+.btn-primary {
+  background: var(--color-primary, #007bff);
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.8;
+}
+
 .alert-success .alert-icon {
   color: var(--color-text, #333);
 }

@@ -21,7 +21,7 @@
     </div>
     
     <div class="alert-actions" *ngIf="alert.type === 'confirm'">
-      <button class="btn btn-danger" (click)="onConfirm(alert)">Confirm</button>
+      <button [class]="alert.confirmButtonType === 'primary' ? 'btn btn-primary' : 'btn btn-danger'" (click)="onConfirm(alert)">Confirm</button>
       <button class="btn btn-secondary" (click)="onCancel(alert)">Cancel</button>
     </div>
   </div>

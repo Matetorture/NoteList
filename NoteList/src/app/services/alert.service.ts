@@ -9,6 +9,7 @@ export interface AlertData {
   message: string;
   onConfirm?: () => void;
   onCancel?: () => void;
+  confirmButtonType?: 'warning' | 'primary';
 }
 
 @Injectable({
@@ -63,14 +64,15 @@ export class AlertService {
     return alert.id;
   }
 
-  confirm(title: string, message: string, onConfirm?: () => void, onCancel?: () => void): void {
+  confirm(title: string, message: string, onConfirm?: () => void, onCancel?: () => void, confirmButtonType: 'warning' | 'primary' = 'warning'): void {
     const alert: AlertData = {
       id: this.generateId(),
       type: 'confirm',
       title,
       message,
       onConfirm,
-      onCancel
+      onCancel,
+      confirmButtonType
     };
     this.addAlert(alert);
   }

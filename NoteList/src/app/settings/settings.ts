@@ -128,7 +128,9 @@ export class Settings implements OnInit, OnDestroy {
         `Ready to export:\n• ${preview.notesCount} notes\n• ${preview.categoriesCount} categories\n\nContinue with export?`,
         async () => {
           await this.importExportService.exportData();
-        }
+        },
+        undefined,
+        'primary'
       );
     } catch (error) {
       console.error('Export failed:', error);

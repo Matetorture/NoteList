@@ -200,7 +200,8 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
         },
         () => {
           this.isExitDialogShowing = false;
-        }
+        },
+        this.isEditMode ? 'warning' : 'primary'
       );
     } else {
       if (!this.isEditMode) {
@@ -293,7 +294,8 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
             },
             () => {
               this.clearDraft();
-            }
+            },
+            'primary'
           );
         } else {
           this.clearDraft();
