@@ -33,6 +33,7 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
   saving = false;
   selectedImageFile: File | null = null;
   isExitDialogShowing = false;
+  isDragOver = false;
   
   private readonly DRAFT_KEY = 'note-form-draft';
   private isDraftLoaded = false;
@@ -392,5 +393,50 @@ export class NoteForm implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.keyboardShortcuts.startListening();
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = true;
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = false;
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = false;
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      
+      if (file.type.startsWith('image/')) {
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size <= maxSize) {
+          this.handleImageFile(file);
+        } else {
+          this.alertService.error('File Size Error', 'Image file size must be less than 5MB.');
+        }
+      } else {
+        this.alertService.error('File Type Error', 'Please drop an image file (JPG, PNG, GIF, WebP).');
+      }
+    }
+  }
+
+  private handleImageFile(file: File): void {
+    this.selectedImageFile = file;
+    
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.note.img = reader.result as string;
+      this.saveDraft();
+    };
+    reader.readAsDataURL(file);
   }
 }

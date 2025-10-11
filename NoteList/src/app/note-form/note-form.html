@@ -48,21 +48,33 @@
           </div>
         </div>
         
-        <div class="image-buttons-row">
+        <div class="image-upload-section">
           <button 
             type="button"
-            class="file-picker-btn"
-            (click)="triggerFileInput()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7,10 12,15 17,10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Choose Image File
+            class="drop-image-btn"
+            [class.drag-over]="isDragOver"
+            (click)="triggerFileInput()"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onDrop($event)">
+            <div class="drop-zone-content">
+              <div class="upload-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7,10 12,15 17,10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </div>
+              <div class="upload-text">
+                <span class="upload-title">Drop Image Here</span>
+                <small class="upload-hint">or click to browse files</small>
+              </div>
+            </div>
           </button>
-          
+        </div>
+        
+        <div class="image-actions" *ngIf="note.img">
           <button 
-            *ngIf="note.img" 
             type="button" 
             (click)="clearImage()" 
             class="clear-image-btn">

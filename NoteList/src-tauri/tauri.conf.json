@@ -14,7 +14,8 @@
       {
         "title": "NoteList",
         "width": 800,
-        "height": 900
+        "height": 900,
+        "dragDropEnabled": false
       }
     ],
     "security": {
