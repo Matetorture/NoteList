@@ -58,8 +58,8 @@
           <button 
             *ngFor="let category of allCategories" 
             (click)="toggleCategory(category)"
-            [class.selected]="isCategorySelected(category)"
-            [style.border-color]="getCategoryColor(category)"
+            [class.active]="isCategoryActive(category)"
+            [style.--category-bg-color]="getCategoryColor(category)"
             class="category-btn">
             <span class="category-color" [style.background-color]="getCategoryColor(category)"></span>
             {{ category }}

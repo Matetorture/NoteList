@@ -140,7 +140,7 @@ export class Notes implements OnInit, OnDestroy {
     return `${hours}:${minutes} ${day}-${month}-${year}`;
   }
 
-  isCategorySelected(category: string): boolean {
+  isCategoryActive(category: string): boolean {
     return this.selectedCategories.includes(category);
   }
 

@@ -297,8 +297,8 @@
 }
 
 .category-btn {
-  background: var(--color-surface, #e9ecef);
-  border: 2px solid rgba(0,0,0,0.2);
+  background: var(--color-surface, #f8f9fa);
+  border: 2px solid #e9ecef;
   padding: 6px 12px;
   border-radius: 20px;
   cursor: pointer;
@@ -307,24 +307,33 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: var(--color-text, #333);
+  color: #6c757d;
+  opacity: 0.6;
 }
 
 .category-color {
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
 }
 
 .category-btn:hover {
-  background: var(--color-primary, #dee2e6);
-  color: white;
+  opacity: 0.8;
+  background: var(--color-surface, #e9ecef);
 }
 
-.category-btn.selected {
-  background: var(--color-primary, #007acc);
+.category-btn.active {
+  background: var(--category-bg-color);
   color: white;
-  border-color: var(--color-primary, #007acc);
+  border-color: var(--category-bg-color);
+  opacity: 1;
+}
+
+.category-btn.active .category-color {
+  opacity: 1;
+  background: white !important;
 }
 
 .filter-actions {
