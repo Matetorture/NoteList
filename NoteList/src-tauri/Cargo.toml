@@ -2,7 +2,7 @@
 name = "notelist"
 version = "0.2.0"
 description = "NoteList"
-authors = ["you"]
+authors = ["Matetorture"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
